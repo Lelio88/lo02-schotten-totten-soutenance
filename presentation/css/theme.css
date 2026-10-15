@@ -1,0 +1,344 @@
+/*
+ * Thème « plateau de jeu écossais » du diaporama Schotten Totten.
+ * Scène fixe 1920×1080 mise à l'échelle par deck.js (comme un diaporama PowerPoint).
+ * Palette : parchemin, bois, vert des Highlands, rouge tartan, turquoise des pastilles
+ * numérotées du livret de règles. Aucune image du jeu n'est utilisée : tout est dessiné en CSS/SVG.
+ */
+:root {
+  --parchemin: #f6ebcb;
+  --parchemin-fonce: #e6d4a3;
+  --encre: #2b1b0e;
+  --bois: #5a3a1b;
+  --bois-clair: #8a6a3b;
+  --vert: #2f6b3a;
+  --vert-fonce: #143222;
+  --rouge: #a8322a;
+  --turquoise: #1f8a8a;
+  --or: #c9962b;
+  --titre: "Uncial Antiqua", "Cinzel", Georgia, serif;
+  --texte: "Alegreya", "Georgia", serif;
+  --ui: "Alegreya", "Georgia", serif;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #0d1f16;
+  color: var(--encre);
+  font-family: var(--texte);
+}
+
+/* ---------- Fond WebGL, transitions, scène ---------- */
+#bg, #fx { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+#bg { z-index: 0; }
+#fx { z-index: 50; pointer-events: none; }
+.no-webgl body {
+  background: linear-gradient(180deg, #2f5f63 0%, #e9cf9a 55%, #1d4a2c 56%, #0f2b1a 100%);
+}
+
+#stage {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: center center;
+  z-index: 10;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 64px 96px 72px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.slide.active { opacity: 1; visibility: visible; pointer-events: auto; }
+.no-webgl .slide { transition: opacity 0.45s ease, visibility 0.45s; }
+
+/* ---------- Typographie ---------- */
+h1, h2, h3 { font-family: var(--titre); font-weight: 400; margin: 0; color: var(--bois); }
+h2 { font-size: 64px; line-height: 1.05; }
+h3 { font-size: 34px; color: var(--rouge); }
+p, li { font-size: 31px; line-height: 1.32; }
+em { color: var(--rouge); font-style: normal; font-weight: 700; }
+code, .mono {
+  font-family: "JetBrains Mono", "Cascadia Mono", Consolas, monospace;
+  font-size: 0.82em;
+  background: rgba(90, 58, 27, 0.12);
+  padding: 1px 8px;
+  border-radius: 6px;
+}
+
+/* ---------- En-tête et pied de slide ---------- */
+.head { display: flex; align-items: center; gap: 28px; margin-bottom: 26px; }
+.badge {
+  flex: none;
+  width: 84px; height: 84px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #35b0ae, var(--turquoise) 60%, #146666);
+  border: 5px solid #fff3d6;
+  box-shadow: 0 0 0 4px var(--turquoise), 0 8px 18px rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-family: var(--titre);
+  font-size: 44px;
+  display: grid;
+  place-items: center;
+}
+.kicker {
+  font-family: var(--ui);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 22px;
+  font-weight: 700;
+  color: #8fe0dd;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+  margin-bottom: 4px;
+}
+.head h2 { color: #fff3d6; text-shadow: 0 4px 0 var(--bois), 0 0 24px rgba(0, 0, 0, 0.55); }
+.foot {
+  position: absolute;
+  left: 96px; right: 96px; bottom: 26px;
+  display: flex; justify-content: space-between;
+  font-family: var(--ui);
+  font-size: 20px;
+  letter-spacing: 0.08em;
+  color: rgba(246, 235, 203, 0.85);
+}
+.foot.dark { color: rgba(43, 27, 14, 0.6); }
+
+/* ---------- Panneau parchemin ---------- */
+.panel {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 18% 8%, rgba(255, 255, 255, 0.6), transparent 55%),
+    radial-gradient(ellipse at 90% 100%, rgba(138, 106, 59, 0.25), transparent 50%),
+    linear-gradient(180deg, #f8eecf, #ecdcb0);
+  border: 4px solid var(--bois);
+  border-radius: 14px;
+  box-shadow: 0 0 0 8px #e6d4a3, 0 0 0 11px var(--bois), 0 26px 50px rgba(0, 0, 0, 0.45);
+}
+.panel.pad { padding: 34px 44px; }
+.slide > .panel.main { height: calc(100% - 150px); margin: 0 12px; }
+.cols { display: grid; gap: 40px; height: 100%; }
+.cols.c2 { grid-template-columns: 1fr 1fr; }
+.cols.c32 { grid-template-columns: 1.6fr 1fr; }
+.cols.c23 { grid-template-columns: 1fr 1.6fr; }
+
+/* ---------- Listes ---------- */
+ul.lst { list-style: none; margin: 0; padding: 0; }
+ul.lst > li { position: relative; padding-left: 46px; margin: 0 0 16px; }
+ul.lst > li::before {
+  content: "";
+  position: absolute; left: 4px; top: 0.42em;
+  width: 22px; height: 22px;
+  background: var(--rouge);
+  transform: rotate(45deg);
+  border-radius: 3px;
+  box-shadow: 0 0 0 3px var(--parchemin), 0 0 0 5px var(--rouge);
+}
+ul.lst.tight > li { margin-bottom: 8px; font-size: 27px; }
+
+/* Éléments de classes : nom + rôle */
+.els { display: grid; gap: 12px; }
+.el {
+  padding: 10px 18px 12px;
+  border-left: 8px solid var(--bois-clair);
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 0 10px 10px 0;
+  transition: background 0.4s, border-color 0.4s, transform 0.4s;
+}
+.el b { display: block; font-family: var(--ui); font-size: 28px; font-weight: 800; color: var(--bois); }
+.el span { display: block; font-size: 25px; line-height: 1.22; }
+.els.tight { gap: 8px; }
+.els.tight .el { padding: 6px 16px 8px; }
+.els.tight .el b { font-size: 26px; }
+.els.tight .el span { font-size: 23px; line-height: 1.18; }
+.el.current { background: rgba(31, 138, 138, 0.2); border-color: var(--turquoise); transform: translateX(6px); }
+.el.sing { border-left-color: #d9786f; }
+.el.strat { border-left-color: #5b84cf; }
+.el.fab { border-left-color: #5fa557; }
+.el.vis { border-left-color: var(--or); }
+
+/* Ruban « Remarque » du livret */
+.ribbon {
+  position: relative;
+  margin-top: 20px;
+  padding: 14px 26px 16px;
+  background: linear-gradient(180deg, #b8402f, #8f2a20);
+  color: #fff3d6;
+  border-radius: 12px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.3);
+  font-size: 28px;
+  line-height: 1.28;
+}
+.ribbon::before {
+  content: attr(data-label);
+  display: block; width: max-content;
+  margin: -14px 0 8px -26px;
+  padding: 2px 18px 2px 20px;
+  background: #fff3d6; color: var(--rouge);
+  font-family: var(--ui); font-weight: 800; font-size: 22px; letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: 0 8px 8px 0;
+}
+.ribbon.green { background: linear-gradient(180deg, #3f8a4c, #2a6636); }
+.ribbon.green::before { color: var(--vert); }
+.ribbon em { color: #ffd98a; }
+
+/* Pastilles de patron */
+.tag {
+  display: inline-block; font-family: var(--ui); font-weight: 800; font-size: 22px; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 4px 16px; border-radius: 999px; color: #2b1b0e; border: 2px solid rgba(0,0,0,.35);
+}
+.tag.sing { background: #f4c7c3; } .tag.strat { background: #c9daf8; }
+.tag.fab { background: #d9ead3; } .tag.vis { background: #ffe599; }
+
+/* ---------- Cartes à jouer (dessinées en CSS) ---------- */
+.card {
+  --c: #2f6b3a;
+  width: 86px; height: 124px; flex: none;
+  position: relative;
+  background: #fffaf0;
+  border: 3px solid var(--c);
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  display: grid; place-items: center;
+  font-family: var(--titre); font-size: 52px; color: var(--c);
+}
+.card::before, .card::after { content: attr(data-n); position: absolute; font-size: 22px; font-family: var(--ui); font-weight: 800; }
+.card::before { top: 4px; left: 8px; }
+.card::after { bottom: 4px; right: 8px; transform: rotate(180deg); }
+.card .dot { position: absolute; bottom: 22px; width: 18px; height: 18px; border-radius: 50%; background: var(--c); }
+.c-vert { --c: #2f8a3f; } .c-mauve { --c: #7c4bb0; } .c-bleu { --c: #2c6fc2; }
+.c-rouge { --c: #c23a2c; } .c-jaune { --c: #c8991a; } .c-orange { --c: #d9701c; }
+.hand { display: flex; gap: 14px; }
+
+/* Borne (pierre dressée) */
+.stone {
+  width: 120px; height: 150px; flex: none;
+  background: linear-gradient(160deg, #8a9a8a, #5e6e60 60%, #44534a);
+  clip-path: polygon(14% 100%, 4% 40%, 22% 8%, 50% 0, 78% 10%, 96% 38%, 86% 100%);
+  display: grid; place-items: center;
+  position: relative;
+}
+.stone svg { width: 56px; height: 56px; stroke: var(--turquoise); fill: none; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 6px rgba(53, 176, 174, 0.8)); }
+.stone.won { background: linear-gradient(160deg, #e5b64c, #a87a20 60%, #7c5810); }
+.stone.won svg { stroke: #fff3d6; filter: none; }
+.row9 { display: flex; gap: 14px; justify-content: center; align-items: flex-end; }
+.row9 .stone { width: 96px; height: 116px; }
+.row9 .stone svg { width: 44px; height: 44px; }
+
+/* ---------- Dessins de diagrammes ---------- */
+.dgm { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 10px; background: rgba(255, 252, 240, 0.7); }
+.dgm svg { width: 100%; height: 100%; display: block; }
+.dgm svg g.entity, .dgm svg g.link { transition: opacity 0.6s ease; }
+.dgm svg g.dim { opacity: 0.12; }
+.dgm svg g.entity.hl > rect:first-of-type { stroke: #1f8a8a; stroke-width: 4; filter: drop-shadow(0 0 8px rgba(31, 138, 138, 0.9)); }
+.dgm-scroll { position: relative; width: 100%; height: 100%; overflow-y: auto; overflow-x: hidden; border-radius: 10px; background: rgba(255, 252, 240, 0.85); }
+.dgm-scroll .dgm-inner { padding: 0 8px; }
+.dgm-scroll svg { width: 100%; height: auto; display: block; }
+
+/* ---------- Titre et intercalaires ---------- */
+.hero { display: grid; place-content: center; text-align: center; height: 100%; gap: 20px; }
+.hero h1 {
+  font-size: 190px; line-height: 0.9; color: #fff3d6;
+  text-shadow: 0 6px 0 var(--bois), 0 0 40px rgba(0, 0, 0, 0.6);
+  letter-spacing: 0.02em;
+}
+.hero h1 small { display: block; font-size: 120px; color: #6fd0cf; text-shadow: 0 6px 0 #0e4a4a, 0 0 40px rgba(0,0,0,.6); }
+.hero .sub { font-family: var(--ui); font-size: 38px; color: #fff3d6; letter-spacing: 0.14em; text-transform: uppercase; text-shadow: 0 3px 10px rgba(0,0,0,.7); }
+.hero .who { font-size: 34px; color: #f3e2b4; text-shadow: 0 3px 10px rgba(0,0,0,.7); }
+.divider { display: grid; place-content: center; text-align: center; height: 100%; gap: 16px; }
+.divider .big {
+  font-family: var(--titre); font-size: 74px; color: #fff3d6;
+  text-shadow: 0 5px 0 var(--bois), 0 0 30px rgba(0,0,0,.6);
+}
+.divider .num {
+  width: 170px; height: 170px; margin: 0 auto 10px; font-size: 100px;
+  border-radius: 50%; display: grid; place-items: center;
+  background: radial-gradient(circle at 35% 30%, #35b0ae, var(--turquoise) 60%, #146666);
+  border: 8px solid #fff3d6; box-shadow: 0 0 0 6px var(--turquoise), 0 14px 30px rgba(0,0,0,.45);
+  color: #fff; font-family: var(--titre);
+}
+.divider .lead { font-size: 38px; color: #f3e2b4; max-width: 1200px; margin: 0 auto; text-shadow: 0 3px 10px rgba(0,0,0,.7); }
+
+/* Plan : pierres */
+.plan { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; align-items: stretch; height: 100%; }
+.plan .stop {
+  display: grid; align-content: center; justify-items: center; gap: 14px; text-align: center; padding: 26px 22px;
+  background: rgba(255, 255, 255, 0.4); border: 3px solid var(--bois-clair); border-radius: 14px;
+}
+.plan .stop.big { background: rgba(31, 138, 138, 0.16); border-color: var(--turquoise); }
+.plan .stop .n { width: 96px; height: 96px; font-size: 52px; }
+.plan .stop h3 { font-size: 38px; }
+.plan .stop p { font-size: 26px; margin: 0; }
+
+/* Tableau besoin → réponse */
+.map { width: 100%; border-collapse: separate; border-spacing: 0 12px; }
+.map td { padding: 14px 22px; font-size: 28px; background: rgba(255, 255, 255, 0.4); vertical-align: middle; }
+.map td:first-child { border-radius: 10px 0 0 10px; width: 46%; }
+.map td:nth-child(2) { width: 6%; text-align: center; color: var(--rouge); font-size: 40px; padding: 0; background: none; }
+.map td:last-child { border-radius: 0 10px 10px 0; }
+
+/* Frise des phases */
+.timeline { display: grid; gap: 14px; }
+.phase { display: grid; grid-template-columns: 70px 1fr; gap: 18px; align-items: center; padding: 14px 18px; border-radius: 12px; background: rgba(255,255,255,.4); border: 3px solid var(--bois-clair); }
+.phase .n { width: 60px; height: 60px; font-size: 34px; border-width: 4px; box-shadow: 0 0 0 3px var(--turquoise); }
+.phase.now { background: rgba(31,138,138,.18); border-color: var(--turquoise); }
+.phase b { font-family: var(--ui); font-size: 27px; display: block; }
+.phase span { font-size: 23px; color: #5b4630; }
+
+/* Combinaisons */
+.combos { display: grid; gap: 10px; }
+.combos h3 { font-size: 30px; }
+.combo { display: grid; grid-template-columns: 56px 270px 1fr; align-items: center; gap: 16px; padding: 4px 14px; background: rgba(255,255,255,.4); border-radius: 12px; }
+.combo .rank { font-family: var(--titre); font-size: 40px; color: var(--rouge); text-align: center; }
+.combo b { font-family: var(--ui); font-size: 27px; }
+.combo .hand { gap: 8px; }
+.combo .card { width: 46px; height: 66px; font-size: 26px; border-width: 2px; border-radius: 7px; box-shadow: 0 3px 6px rgba(0,0,0,.25); }
+.combo .card::before, .combo .card::after { font-size: 13px; }
+.combo .card::before { top: 2px; left: 5px; } .combo .card::after { bottom: 2px; right: 5px; }
+.combo .card .dot { display: none; }
+
+/* Slides aérées : contenu centré verticalement, texte plus grand */
+.panel.vc { display: grid; align-content: center; }
+.panel.vc .cols { height: auto; align-items: start; }
+.big-text ul.lst > li { font-size: 38px; margin-bottom: 24px; padding-left: 52px; }
+.big-text ul.lst > li::before { top: 0.4em; }
+.big-text h3 { font-size: 44px; }
+.big-text .map td { font-size: 34px; }
+
+/* Légende flottante : une seule étape visible à la fois */
+.solo { position: absolute; left: 0; right: 0; bottom: 0; height: 120px; }
+.solo > [data-step] {
+  position: absolute; inset: 0; display: grid; align-items: center;
+  padding: 0 40px; font-size: 32px; background: rgba(43, 27, 14, 0.86); color: #fff3d6;
+  border-radius: 10px;
+}
+.solo > [data-step].on:not(.current) { opacity: 0; }
+.solo em { color: #ffd98a; }
+.thumb { width: 100%; height: 100%; object-fit: contain; border-radius: 10px; background: #fff; }
+.note { font-size: 24px; color: #5b4630; }
+
+/* ---------- Animations d'entrée (étapes) ---------- */
+[data-step] { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+[data-step].on { opacity: 1; transform: none; }
+.slide [data-anim] { opacity: 0; transform: translateY(26px); }
+.slide.active [data-anim] { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; animation-delay: calc(var(--i, 0) * 110ms + 450ms); }
+@keyframes rise { to { opacity: 1; transform: none; } }
+
+/* Aide clavier */
+#help {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: 10px; z-index: 60;
+  font-family: var(--ui); font-size: 14px; color: rgba(246,235,203,.7);
+  letter-spacing: .05em; pointer-events: none; opacity: 0; transition: opacity .5s;
+}
+#help.show { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .slide.active [data-anim], [data-step] { animation: none; transition: none; }
+  .slide [data-anim] { opacity: 1; transform: none; }
+}

@@ -1,0 +1,180 @@
+@startuml classes-v2
+' Diagramme de classes v2 : base = diagramme du binôme (Modelio), corrigé et complété
+' avec Fabrique et Visiteur. Rendu : java -jar plantuml.jar -tpng classes-v2.puml
+' Code couleur : une couleur par patron de conception (voir légende).
+title Schotten Totten - Diagramme de classes v2
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam nodesep 50
+skinparam ranksep 70
+skinparam class {
+  BackgroundColor #F7EFD8
+  BorderColor #5A3A1B
+  ArrowColor #5A3A1B
+  FontColor #2B1B0E
+}
+
+' --- Jeu ---
+class Partie <<Singleton>> #F4C7C3 {
+  - {static} instance : Partie
+  - extensionsActivees : boolean
+  - varianteTactique : boolean
+  - joueurActuel : Joueur
+  - Partie()
+  + {static} getInstance() : Partie
+  + initialiserPartie()
+  + jouerTour()
+  + changerJoueur()
+  + verifierFinPartie() : boolean
+  + sauvegarder(chemin : String)
+  + charger(chemin : String)
+}
+
+class Borne {
+  - numero : int
+  - revendiqueePar : Joueur
+  + ajouterCarte(c : Carte, j : Joueur) : boolean
+  + estPleine(j : Joueur) : boolean
+  + evaluerGagnant() : Joueur
+  + revendiquer(j : Joueur)
+  + getCartesJoueur(j : Joueur) : Carte [*]
+}
+
+class Pioche {
+  + melanger()
+  + tirerCarte() : Carte
+  + estVide() : boolean
+}
+
+class Defausse {
+  + defausser(c : Carte)
+  + getCartes() : Carte [*]
+}
+
+enum Combinaison {
+  SUITE_COULEUR
+  BRELAN
+  COULEUR
+  SUITE
+  SOMME
+}
+
+' --- Joueurs et Strategie ---
+abstract class Joueur {
+  - nom : String
+  - score : int
+  + {abstract} jouerTour(p : Partie)
+  + jouerCarte(c : Carte, b : Borne)
+  + piocher(p : Pioche)
+  + revendiquerBorne(b : Borne)
+}
+
+class JoueurPhysique
+class JoueurVirtuel {
+  + definirStrategie(s : Strategie)
+}
+
+interface Strategie <<Strategie>> #C9DAF8 {
+  + choisirCarteAJouer(main : Carte [*], plateau : Borne [9]) : Carte
+  + choisirBorneCible(main : Carte [*], plateau : Borne [9]) : Borne
+}
+class StrategieDefensive #C9DAF8
+class StrategieOffensive #C9DAF8
+
+' --- Cartes ---
+abstract class Carte {
+  - nom : String
+  + {abstract} estJouableSurBorne(b : Borne) : boolean
+  + {abstract} accepter(v : VisiteurCarte)
+}
+
+class CarteClan {
+  - couleur : Couleur
+  - force : int
+}
+
+abstract class CarteTactique {
+  + {abstract} appliquerEffet(b : Borne, p : Partie)
+}
+
+class TroupeElite <<Joker, Espion, PorteBouclier>> {
+  - couleur : Couleur
+  - force : int
+}
+class ModeCombat <<ColinMaillard, CombatBoue>>
+class Ruse <<ChasseurTete, Stratege, Banshee, Traitre>>
+
+class CarteExtension {
+  + appliquerEffetExtension(p : Partie, b : Borne)
+}
+
+enum Couleur {
+  VERT
+  MAUVE
+  BLEU
+  ROUGE
+  ' 6 valeurs au total
+}
+
+' --- Patron Fabrique ---
+class FabriqueCartes <<Fabrique>> #D9EAD3 {
+  + creerCartesClan() : Carte [*]
+  + creerCartesTactique() : Carte [*]
+  + creerCartesExtension() : Carte [*]
+}
+
+' --- Patron Visiteur ---
+interface VisiteurCarte <<Visiteur>> #FFE599 {
+  + visiter(c : CarteClan)
+  + visiter(c : TroupeElite)
+  + visiter(c : ModeCombat)
+  + visiter(c : Ruse)
+  + visiter(c : CarteExtension)
+}
+class EvaluateurCombinaison #FFE599 {
+  + evaluer(cartes : Carte [*]) : Combinaison
+}
+
+' --- Structure du jeu ---
+Partie *-- "9" Borne : bornes
+Partie *-- "1..2" Pioche : pioche
+Partie *-- "0..1" Defausse : defausse
+Partie o-- "2" Joueur : joueurs
+Borne "0..*" --> "0..1" Joueur : revendiqueePar
+Borne o-- "0..8" Carte : cartesPosees
+Borne --> "0..1" ModeCombat : mode
+Joueur o-- "0..7" Carte : main
+Pioche o-- "0..54" Carte : cartesRestantes
+Defausse o-- "0..*" Carte : cartesDefaussees
+
+' --- Joueurs et Strategie ---
+Joueur <|-- JoueurPhysique
+Joueur <|-- JoueurVirtuel
+JoueurVirtuel --> "1" Strategie : comportement
+Strategie <|.. StrategieDefensive
+Strategie <|.. StrategieOffensive
+
+' --- Cartes ---
+Carte <|-- CarteClan
+Carte <|-- CarteTactique
+Carte <|-- CarteExtension
+CarteTactique <|-- TroupeElite
+CarteTactique <|-- ModeCombat
+CarteTactique <|-- Ruse
+
+' --- Fabrique et Visiteur ---
+Partie ..> FabriqueCartes : utilise
+FabriqueCartes ..> Carte : crée
+Carte ..> VisiteurCarte : accepte
+VisiteurCarte <|.. EvaluateurCombinaison
+Borne ..> EvaluateurCombinaison : utilise
+
+legend right
+  |= Couleur |= Patron |
+  | <back:#F4C7C3>      </back> | Singleton |
+  | <back:#C9DAF8>      </back> | Stratégie |
+  | <back:#D9EAD3>      </back> | Fabrique |
+  | <back:#FFE599>      </back> | Visiteur |
+endlegend
+@enduml

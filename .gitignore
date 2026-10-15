@@ -1,0 +1,12 @@
+# Supports de cours : documents de l'enseignant et règles du jeu (non redistribuables)
+Consignes.pdf
+
+# Compilation et éditeurs
+classes/
+*.class
+.idea/
+.vscode/
+*.iml
+
+# Rendus temporaires
+*.bak
