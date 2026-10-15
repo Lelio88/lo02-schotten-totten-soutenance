@@ -335,7 +335,7 @@
             <div class="els tight">
               <div class="el vis" data-step data-hl="Borne"><b>Problème</b><span>Ce qu'une carte vaut dans une formation dépend de son type (Clan : sa force ; Joker : valeur choisie ; Colin-Maillard : somme seule). Sans patron : <code>instanceof</code> en cascade dans <code>Borne</code>.</span></div>
               <div class="el vis" data-step data-hl="Carte VisiteurCarte"><b>Solution</b><span><code>Carte.accepter(v)</code> appelle <code>v.visiter(this)</code> : le type réel de la carte choisit la méthode (double dispatch).</span></div>
-              <div class="el vis" data-step data-hl="EvaluateurCombinaison Combinaison"><b>EvaluateurCombinaison</b><span>Concentre la logique et produit une <code>Combinaison</code>.</span></div>
+              <div class="el vis" data-step data-focus="VisiteurCarte EvaluateurCombinaison" data-hl="EvaluateurCombinaison"><b>EvaluateurCombinaison</b><span>Concentre la logique et produit une <code>Combinaison</code>.</span></div>
               <div class="el vis" data-step data-hl="VisiteurCarte"><b>Ouverture</b><span>Nouvelle opération (sauvegarde, affichage) = nouveau visiteur, sans toucher aux cartes.</span></div>
             </div>
             <div class="ribbon" data-label="Contrepartie" data-step data-focus="Carte VisiteurCarte EvaluateurCombinaison" style="font-size:23px">Une nouvelle <em>classe</em> de carte oblige à modifier les visiteurs. Acceptable : les types de cartes sont stables. Pour <code>appliquerEffet</code>, le polymorphisme simple suffit.</div>
