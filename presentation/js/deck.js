@@ -77,7 +77,7 @@
   /** Transition sobre : fondu enchaîné avec léger glissement horizontal (pas d'effet shader). */
   function slideTransition(from, to, dir) {
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!from || reduced || !to.animate) return Promise.resolve();
+    if (!from || reduced || document.hidden || !to.animate) return Promise.resolve();
     const opts = { duration: 380, easing: "ease-in-out" };
     from.style.visibility = "visible";
     from.style.zIndex = "0";
@@ -85,7 +85,13 @@
       [{ opacity: 1, transform: "none" }, { opacity: 0, transform: `translateX(${-dir * 48}px)` }], opts);
     const inn = to.animate(
       [{ opacity: 0, transform: `translateX(${dir * 48}px)` }, { opacity: 1, transform: "none" }], opts);
-    return Promise.allSettled([out.finished, inn.finished]).then(() => {
+    // Garde-fou : dans une fenêtre masquée ou en arrière-plan les animations peuvent ne jamais
+    // se terminer, ce qui bloquerait la navigation (busy) pour de bon.
+    const done = Promise.allSettled([out.finished, inn.finished]);
+    const timeout = new Promise((resolve) => setTimeout(resolve, opts.duration + 150));
+    return Promise.race([done, timeout]).then(() => {
+      out.cancel();
+      inn.cancel();
       from.style.visibility = "";
       from.style.zIndex = "";
     });
