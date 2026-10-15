@@ -114,7 +114,8 @@ enum Couleur {
   MAUVE
   BLEU
   ROUGE
-  ' 6 valeurs au total
+  ORANGE
+  JAUNE
 }
 
 ' --- Patron Fabrique ---
