@@ -68,8 +68,27 @@
     const target = Math.max(0, Math.min(index, total - 1));
     if (state.busy || target === state.index) return;
     state.busy = true;
-    const mode = slides[target].dataset.fx || "ink";
-    window.FX.play(mode, () => activate(target, step)).then(() => { state.busy = false; });
+    const dir = target > state.index ? 1 : -1;
+    const from = state.index >= 0 ? slides[state.index] : null;
+    activate(target, step);
+    slideTransition(from, slides[target], dir).then(() => { state.busy = false; });
+  }
+
+  /** Transition sobre : fondu enchaîné avec léger glissement horizontal (pas d'effet shader). */
+  function slideTransition(from, to, dir) {
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!from || reduced || !to.animate) return Promise.resolve();
+    const opts = { duration: 380, easing: "ease-in-out" };
+    from.style.visibility = "visible";
+    from.style.zIndex = "0";
+    const out = from.animate(
+      [{ opacity: 1, transform: "none" }, { opacity: 0, transform: `translateX(${-dir * 48}px)` }], opts);
+    const inn = to.animate(
+      [{ opacity: 0, transform: `translateX(${dir * 48}px)` }, { opacity: 1, transform: "none" }], opts);
+    return Promise.allSettled([out.finished, inn.finished]).then(() => {
+      from.style.visibility = "";
+      from.style.zIndex = "";
+    });
   }
 
   function next() {
@@ -93,8 +112,33 @@
     window.open("presenter.html", "lo02-presenter", "popup,width=1180,height=820");
   }
 
+  // Saisie d'un numéro de slide : les chiffres s'accumulent, on saute après 1,2 s sans frappe
+  // (ou tout de suite si aucun chiffre de plus ne peut donner un numéro valide).
+  const JUMP_DELAY_MS = 1200;
+  let digits = "";
+  let digitTimer = null;
+
+  function flushDigits() {
+    clearTimeout(digitTimer);
+    const n = parseInt(digits, 10);
+    digits = "";
+    if (n >= 1 && n <= total) go(n - 1);
+  }
+
+  function typeDigit(d) {
+    digits += d;
+    clearTimeout(digitTimer);
+    if (parseInt(digits, 10) * 10 > total) flushDigits();
+    else digitTimer = setTimeout(flushDigits, JUMP_DELAY_MS);
+  }
+
   addEventListener("keydown", (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (/^\d$/.test(e.key)) {
+      e.preventDefault();
+      typeDigit(e.key);
+      return;
+    }
     const actions = {
       ArrowRight: next, PageDown: next, " ": next, Enter: next,
       ArrowLeft: prev, PageUp: prev, Backspace: prev,
@@ -139,8 +183,4 @@
   const initialStep = /[?&]all\b/.test(location.search) ? "all" : stepParam ? Number(stepParam[1]) : 0;
   const fromHash = parseInt(location.hash.slice(1), 10);
   activate(Number.isFinite(fromHash) && fromHash >= 1 && fromHash <= total ? fromHash - 1 : 0, initialStep);
-
-  const help = document.getElementById("help");
-  help.classList.add("show");
-  setTimeout(() => help.classList.remove("show"), 6000);
 })();
