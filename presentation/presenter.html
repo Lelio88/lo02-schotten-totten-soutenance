@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Console présentateur : Schotten Totten</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%231f8a8a'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700;800&family=Uncial+Antiqua&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="js/vendor/lenis.css">
+  <link rel="stylesheet" href="css/presenter.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="status"><span id="dot" class="dot" aria-hidden="true"></span><span id="link">En attente de l'écran public…</span></div>
+    <div class="timer" aria-label="Temps écoulé"><span id="clock">00:00</span><button id="reset" type="button">Remise à zéro</button></div>
+  </header>
+
+  <main class="grid">
+    <section class="notes-col" aria-label="Notes du présentateur">
+      <div class="crumb"><span id="num">–</span><h1 id="title">Console présentateur</h1></div>
+      <div id="notes" class="notes"><div id="notes-inner"></div></div>
+    </section>
+
+    <aside class="side">
+      <div class="card">
+        <h2>Étapes de la slide</h2>
+        <div id="steps" class="steps" aria-live="polite"></div>
+      </div>
+      <div class="card next">
+        <h2>Slide suivante</h2>
+        <p id="next">–</p>
+      </div>
+      <div class="card" id="qa-card" hidden>
+        <h2>Questions probables</h2>
+        <div id="qa"></div>
+      </div>
+      <div class="ctrl">
+        <button id="prev" type="button">← Précédent</button>
+        <button id="nextBtn" type="button">Suivant →</button>
+      </div>
+      <p class="hint">Ouvrez <code>index.html</code> sur l'écran public (touche F pour le plein écran). Les deux fenêtres se synchronisent ; les flèches fonctionnent aussi ici.</p>
+    </aside>
+  </main>
+
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/slides-data.js"></script>
+  <script src="js/presenter.js"></script>
+</body>
+</html>

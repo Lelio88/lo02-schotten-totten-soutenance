@@ -1,0 +1,57 @@
+@startuml sequence-initialisation
+' Démarrage d'une partie : patrons Singleton et Fabrique.
+title Initialisation d'une partie (patrons Singleton et Fabrique)
+
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam sequence {
+  ParticipantBackgroundColor #F7EFD8
+  ParticipantBorderColor #5A3A1B
+  LifeLineBorderColor #5A3A1B
+  ArrowColor #5A3A1B
+}
+skinparam participant<<singleton>> {
+  BackgroundColor #F4C7C3
+}
+skinparam participant<<fabrique>> {
+  BackgroundColor #D9EAD3
+}
+
+actor "Utilisateur" as U
+participant "Partie" as P <<singleton>>
+participant "f : FabriqueCartes" as F <<fabrique>>
+participant "pioche : Pioche" as PI
+participant "j : Joueur" as J
+
+U -> P : getInstance()
+alt instance == null
+  P -> P : new Partie() (constructeur privé)
+end
+P --> U : partie (toujours la même instance)
+
+U -> P : initialiserPartie()
+activate P
+P -> F ** : new
+P -> F : creerCartesClan()
+F --> P : 54 cartes Clan
+opt varianteTactique
+  P -> F : creerCartesTactique()
+  F --> P : 10 cartes Tactique
+end
+opt extensionsActivees
+  P -> F : creerCartesExtension()
+  F --> P : cartes d'extension
+end
+P -> PI ** : new (cartes)
+P -> PI : melanger()
+loop pour chaque joueur j
+  loop 6 fois (7 en variante tactique)
+    P -> J : piocher(pioche)
+    activate J
+    J -> PI : tirerCarte()
+    PI --> J : carte
+    deactivate J
+  end
+end
+deactivate P
+@enduml

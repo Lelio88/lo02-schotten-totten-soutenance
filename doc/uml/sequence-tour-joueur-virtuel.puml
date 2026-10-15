@@ -1,0 +1,68 @@
+@startuml sequence-tour-joueur-virtuel
+' Diagramme de séquence principal : un tour d'un joueur virtuel (patron Stratégie).
+' Chaque message correspond à une méthode du diagramme de classes v2.
+title Un tour de jeu : joueur virtuel (patron Stratégie)
+
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam sequence {
+  ParticipantBackgroundColor #F7EFD8
+  ParticipantBorderColor #5A3A1B
+  LifeLineBorderColor #5A3A1B
+  ArrowColor #5A3A1B
+}
+skinparam participant<<strat>> {
+  BackgroundColor #C9DAF8
+}
+
+participant "partie : Partie" as P
+participant "jv : JoueurVirtuel" as J
+participant "s : StrategieOffensive" as S <<strat>>
+participant "b : Borne" as B
+participant "pioche : Pioche" as PI
+
+P -> J : jouerTour(partie)
+activate J
+
+== 1. Choisir le coup (délégué à la Stratégie) ==
+J -> S : choisirCarteAJouer(main, plateau)
+S --> J : carte
+J -> S : choisirBorneCible(main, plateau)
+S --> J : b
+
+== 2. Jouer la carte ==
+alt carte.estJouableSurBorne(b)
+  J -> J : jouerCarte(carte, b)
+  J -> B : ajouterCarte(carte, jv)
+  B --> J : true
+else carte non jouable
+  note right of J : Le joueur passe\n(aucune borne jouable)
+end
+
+== 3. Revendiquer les bornes possibles ==
+loop pour chaque borne non revendiquée
+  J -> J : revendiquerBorne(b)
+  J -> B : revendiquer(jv)
+  ref over B : Évaluation d'une borne\n(voir diagramme « évaluation »)
+  B --> J : revendiquée ou refusée
+end
+
+== 4. Piocher ==
+opt la pioche n'est pas vide
+  J -> PI : estVide()
+  PI --> J : false
+  J -> J : piocher(pioche)
+  J -> PI : tirerCarte()
+  PI --> J : carte
+end
+J --> P
+deactivate J
+
+== 5. Fin de tour ==
+P -> P : verifierFinPartie()
+alt partie terminée
+  note over P : Le gagnant est déclaré
+else partie en cours
+  P -> P : changerJoueur()
+end
+@enduml
