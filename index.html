@@ -1,0 +1,547 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Schotten Totten : soutenance 1</title>
+  <meta name="description" content="Soutenance 1 du projet LO02 : modélisation UML de Schotten Totten (diagrammes de classes et de séquence).">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%231f8a8a' stroke='%23fff3d6' stroke-width='6'/%3E%3Cg fill='none' stroke='%23fff' stroke-width='8' stroke-linecap='round'%3E%3Cpath id='a' d='M50 50 C50 30 70 20 78 34 C84 46 70 56 62 48'/%3E%3Cuse href='%23a' transform='rotate(120 50 50)'/%3E%3Cuse href='%23a' transform='rotate(240 50 50)'/%3E%3C/g%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700;800&family=Uncial+Antiqua&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="js/vendor/lenis.css">
+  <link rel="stylesheet" href="css/theme.css">
+</head>
+<body>
+  <!-- Symboles SVG réutilisés : triskèle (motif celte) et rune des bornes -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="triskele" viewBox="0 0 100 100">
+        <g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round">
+          <path id="arm" d="M50 50 C50 30 70 20 78 34 C84 46 70 56 62 48"/>
+          <use href="#arm" transform="rotate(120 50 50)"/>
+          <use href="#arm" transform="rotate(240 50 50)"/>
+        </g>
+      </symbol>
+      <symbol id="rune" viewBox="0 0 60 60">
+        <path d="M30 6 L52 30 L30 54 L8 30 Z M30 6 L30 54 M8 30 L52 30"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <main id="stage">
+
+    <!-- 1 · Titre -->
+    <section class="slide" data-title="Titre" data-fx="ink">
+      <div class="hero">
+        <div class="sub" data-anim style="--i:0">Projet LO02 · Phase 1 · Modélisation UML</div>
+        <h1 data-anim style="--i:1">Schotten <small>Totten</small></h1>
+        <div class="who" data-anim style="--i:2">Lelio Buton &amp; [nom du binôme] · Soutenance 1 · semaine du 19 octobre 2026</div>
+      </div>
+    </section>
+
+    <!-- 2 · Plan -->
+    <section class="slide" data-title="Plan" data-fx="ink">
+      <header class="head">
+        <div class="badge"><svg width="52" height="52" aria-hidden="true"><use href="#triskele" style="color:#fff"/></svg></div>
+        <div><div class="kicker">Plan de la soutenance</div><h2>Notre parcours</h2></div>
+      </header>
+      <div class="panel main pad">
+        <div class="plan">
+          <div class="stop" data-step>
+            <div class="badge n"><svg width="52" height="52" aria-hidden="true"><use href="#triskele" style="color:#fff"/></svg></div>
+            <h3>Introduction</h3><p>Le projet tel que nous l'avons compris</p>
+          </div>
+          <div class="stop big" data-step>
+            <div class="badge n">I</div>
+            <h3>Diagramme de classes</h3><p>De quoi est fait le logiciel ? Éléments, relations, quatre patrons</p>
+          </div>
+          <div class="stop big" data-step>
+            <div class="badge n">II</div>
+            <h3>Diagrammes de séquence</h3><p>Comment se déroule un tour de jeu ?</p>
+          </div>
+          <div class="stop" data-step>
+            <div class="badge n"><svg width="52" height="52" aria-hidden="true"><use href="#triskele" style="color:#fff"/></svg></div>
+            <h3>Conclusion</h3><p>Ce qui est sûr, ce qui peut bouger au développement</p>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 3 · Introduction : le projet -->
+    <section class="slide" data-title="Le projet tel que compris" data-fx="ink">
+      <header class="head">
+        <div class="badge"><svg width="52" height="52" aria-hidden="true"><use href="#triskele" style="color:#fff"/></svg></div>
+        <div><div class="kicker">Introduction</div><h2>Le projet tel que nous l'avons compris</h2></div>
+      </header>
+      <div class="panel main pad">
+        <div class="cols c32">
+          <ul class="lst">
+            <li data-step>Version électronique de <em>Schotten Totten</em> à <em>2 joueurs</em> : physiques, virtuels, ou un mélange</li>
+            <li data-step>Le joueur virtuel suit une <em>stratégie</em> simple mais cohérente</li>
+            <li data-step>Moteur testable en <em>ligne de commande</em>, puis <em>interface graphique</em> (MVC, deux vues)</li>
+            <li data-step><em>Extensions</em> : de nouvelles cartes, activées ou non au début de la partie</li>
+            <li data-step>Toutes les <em>variantes</em> sauf « Experts » (donc la variante tactique)</li>
+            <li data-step><em>Sauvegarde</em> et reprise d'une partie ; architecture <em>modulaire et extensible</em></li>
+          </ul>
+          <div class="timeline">
+            <div class="phase now" data-step><div class="badge n">1</div><div><b>Modélisation UML</b><span>Soutenance semaine du 19 octobre</span></div></div>
+            <div class="phase" data-step><div class="badge n">2</div><div><b>Cœur de l'application</b><span>Ligne de commande · 14 décembre</span></div></div>
+            <div class="phase" data-step><div class="badge n">3</div><div><b>Interface graphique (MVC)</b><span>4 janvier 2027</span></div></div>
+            <div class="phase" data-step><div class="badge n">⇪</div><div><b>Remise des fichiers</b><span>Vendredi 15 janvier 2027</span></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 4 · Le jeu en une image -->
+    <section class="slide" data-title="Le jeu en une image" data-fx="ink">
+      <header class="head">
+        <div class="badge"><svg width="52" height="52" aria-hidden="true"><use href="#triskele" style="color:#fff"/></svg></div>
+        <div><div class="kicker">Introduction</div><h2>Le jeu en une image</h2></div>
+      </header>
+      <div class="panel main pad" style="display:grid;grid-template-rows:auto 1fr auto;gap:18px">
+        <div class="row9" data-step>
+          <div class="stone"><svg><use href="#rune"/></svg></div><div class="stone"><svg><use href="#rune"/></svg></div>
+          <div class="stone won"><svg><use href="#rune"/></svg></div><div class="stone"><svg><use href="#rune"/></svg></div>
+          <div class="stone"><svg><use href="#rune"/></svg></div><div class="stone won"><svg><use href="#rune"/></svg></div>
+          <div class="stone"><svg><use href="#rune"/></svg></div><div class="stone"><svg><use href="#rune"/></svg></div>
+          <div class="stone won"><svg><use href="#rune"/></svg></div>
+        </div>
+        <div class="cols c2" style="align-items:start">
+          <div data-step>
+            <h3>Un tour de jeu</h3>
+            <ul class="lst tight" style="margin-top:12px">
+              <li>Poser <em>1 carte</em> devant une borne (3 cartes max par camp)</li>
+              <li><em>Revendiquer</em> les bornes dont on bat l'adversaire</li>
+              <li><em>Piocher</em> pour revenir à 6 cartes</li>
+            </ul>
+            <p class="note">Une borne se revendique avec la meilleure formation de 3 cartes.</p>
+          </div>
+          <div class="combos" data-step>
+            <h3>Les formations, de la plus forte à la plus faible</h3>
+            <div class="combo"><div class="rank">1</div><b>Suite couleur</b><div class="hand"><div class="card c-vert" data-n="3">3</div><div class="card c-vert" data-n="4">4</div><div class="card c-vert" data-n="5">5</div></div></div>
+            <div class="combo"><div class="rank">2</div><b>Brelan</b><div class="hand"><div class="card c-vert" data-n="7">7</div><div class="card c-mauve" data-n="7">7</div><div class="card c-rouge" data-n="7">7</div></div></div>
+            <div class="combo"><div class="rank">3</div><b>Couleur</b><div class="hand"><div class="card c-bleu" data-n="2">2</div><div class="card c-bleu" data-n="5">5</div><div class="card c-bleu" data-n="9">9</div></div></div>
+            <div class="combo"><div class="rank">4</div><b>Suite</b><div class="hand"><div class="card c-jaune" data-n="4">4</div><div class="card c-rouge" data-n="5">5</div><div class="card c-vert" data-n="6">6</div></div></div>
+            <div class="combo"><div class="rank">5</div><b>Somme</b><div class="hand"><div class="card c-orange" data-n="1">1</div><div class="card c-bleu" data-n="6">6</div><div class="card c-mauve" data-n="8">8</div></div></div>
+          </div>
+        </div>
+        <div class="ribbon green" data-label="Victoire" data-step>Contrôler <em>5 bornes</em> n'importe où sur la frontière, ou <em>3 bornes adjacentes</em>.</div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 5 · Besoins -> conception -->
+    <section class="slide" data-title="Des besoins aux choix de conception" data-fx="ink">
+      <header class="head">
+        <div class="badge"><svg width="52" height="52" aria-hidden="true"><use href="#triskele" style="color:#fff"/></svg></div>
+        <div><div class="kicker">Introduction</div><h2>Des besoins aux choix de conception</h2></div>
+      </header>
+      <div class="panel main pad vc big-text">
+        <table class="map">
+          <tbody>
+            <tr data-step><td>Joueur physique ou virtuel, combinables</td><td>→</td><td>Classe abstraite <code>Joueur</code> + <span class="tag strat">Stratégie</span></td></tr>
+            <tr data-step><td>Variantes et extensions = de nouvelles cartes</td><td>→</td><td>Hiérarchie <code>Carte</code> + <span class="tag fab">Fabrique</span></td></tr>
+            <tr data-step><td>Formations et effets spéciaux qui évoluent</td><td>→</td><td>Énumération <code>Combinaison</code> + <span class="tag vis">Visiteur</span></td></tr>
+            <tr data-step><td>Une seule partie, que l'on peut sauvegarder</td><td>→</td><td><code>Partie</code> en <span class="tag sing">Singleton</span></td></tr>
+          </tbody>
+        </table>
+        <div class="ribbon" data-label="À retenir" data-step>Les quatre patrons de l'étude sont chacun justifiés par un <em>besoin du sujet</em>, pas ajoutés pour le principe.</div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 6 · Intercalaire I -->
+    <section class="slide" data-title="I · Diagramme de classes" data-fx="tartan">
+      <div class="divider">
+        <div class="num" data-anim style="--i:0">I</div>
+        <div class="big" data-anim style="--i:1">Diagramme de classes</div>
+        <div class="lead" data-anim style="--i:2">De quoi est fait le logiciel ?</div>
+      </div>
+    </section>
+
+    <!-- 7 · Vue d'ensemble -->
+    <section class="slide" data-title="Vue d'ensemble du diagramme" data-fx="iris" data-focus="">
+      <header class="head">
+        <div class="badge">I</div>
+        <div><div class="kicker">Diagramme de classes</div><h2>Vue d'ensemble : 22 éléments, 4 patrons</h2></div>
+      </header>
+      <div class="panel main" style="padding:14px">
+        <div class="dgm" data-diagram="classes" style="height:calc(100% - 118px)"></div>
+        <div class="solo" style="left:14px;right:14px;bottom:14px;height:98px">
+          <div data-step data-focus="Partie Borne Pioche Defausse Combinaison"><span><em>Le plateau.</em> <code>Partie</code> possède 9 <code>Borne</code>, la <code>Pioche</code> et la <code>Defausse</code></span></div>
+          <div data-step data-focus="Joueur JoueurPhysique JoueurVirtuel Strategie StrategieDefensive StrategieOffensive"><span><em>Les joueurs.</em> Physique ou virtuel, ce dernier piloté par une <code>Strategie</code></span></div>
+          <div data-step data-focus="Carte CarteClan CarteTactique TroupeElite ModeCombat Ruse CarteExtension Couleur"><span><em>Les cartes.</em> Clan, Tactique (3 catégories) et Extension</span></div>
+          <div data-step data-focus="FabriqueCartes VisiteurCarte EvaluateurCombinaison Carte"><span><em>Deux blocs annexes.</em> La Fabrique crée les cartes, le Visiteur évalue les formations</span></div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 8 · Plateau -->
+    <section class="slide" data-title="Le plateau de jeu" data-fx="iris" data-focus="Partie Borne Pioche Defausse Combinaison">
+      <header class="head">
+        <div class="badge">I</div>
+        <div><div class="kicker">Diagramme de classes · le plateau</div><h2>Partie, Bornes, Pioche, Défausse</h2></div>
+      </header>
+      <div class="panel main pad" style="padding:20px">
+        <div class="cols" style="grid-template-columns:1.25fr 1fr">
+          <div class="dgm" data-diagram="classes"></div>
+          <div>
+            <div class="els tight">
+              <div class="el sing" data-step data-hl="Partie"><b>Partie</b><span>Chef d'orchestre : initialise, enchaîne les tours, vérifie la fin, sauvegarde et charge.</span></div>
+              <div class="el" data-step data-hl="Borne"><b>Borne</b><span>Une des 9 tuiles de la frontière : cartes de chaque camp, revendication, évaluation.</span></div>
+              <div class="el" data-step data-focus="Pioche Defausse" data-hl="Pioche"><b>Pioche</b><span>Mélanger, tirer, savoir si elle est vide. 1 à 2 pioches (Clan, Tactique).</span></div>
+              <div class="el" data-step data-focus="Pioche Defausse" data-hl="Defausse"><b>Defausse</b><span>Cartes écartées par les ruses, consultable à tout moment.</span></div>
+              <div class="el" data-step data-hl="Combinaison"><b>Combinaison</b><span>Énumération des 5 formations, de la plus forte à la plus faible.</span></div>
+            </div>
+            <div class="ribbon" data-label="Relations" data-step style="font-size:24px">Composition ◆ : bornes, pioche et défausse n'existent pas sans la partie. Agrégation ◇ : les cartes survivent à une main.</div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 9 · Joueurs -->
+    <section class="slide" data-title="Les joueurs" data-fx="iris" data-focus="Joueur JoueurPhysique JoueurVirtuel Strategie">
+      <header class="head">
+        <div class="badge">I</div>
+        <div><div class="kicker">Diagramme de classes · les joueurs</div><h2>Un joueur, deux façons de jouer</h2></div>
+      </header>
+      <div class="panel main pad" style="padding:20px">
+        <div class="cols" style="grid-template-columns:1.25fr 1fr">
+          <div class="dgm" data-diagram="classes"></div>
+          <div>
+            <div class="els tight">
+              <div class="el" data-step data-hl="Joueur"><b>Joueur (abstraite)</b><span>Nom, score. <code>jouerTour(p)</code> est abstraite : chaque type de joueur décide comment il joue.</span></div>
+              <div class="el" data-step data-focus="Joueur JoueurPhysique JoueurVirtuel" data-hl="JoueurPhysique"><b>JoueurPhysique</b><span>Les choix viennent de l'utilisateur (via le contrôleur, hors du modèle).</span></div>
+              <div class="el strat" data-step data-hl="JoueurVirtuel Strategie"><b>JoueurVirtuel</b><span>Délègue ses choix à une <code>Strategie</code>, changeable en cours de partie.</span></div>
+              <div class="el" data-step data-hl="Joueur"><b>La main</b><span>0 à 7 cartes : 6 de base, 7 en variante tactique.</span></div>
+            </div>
+            <div class="ribbon green" data-label="Polymorphisme" data-step style="font-size:24px"><code>Partie</code> appelle <em>jouerTour()</em> sans savoir quel type de joueur elle manipule.</div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 10 · Cartes -->
+    <section class="slide" data-title="Les cartes" data-fx="iris" data-focus="Carte CarteClan CarteTactique TroupeElite ModeCombat Ruse CarteExtension Couleur">
+      <header class="head">
+        <div class="badge">I</div>
+        <div><div class="kicker">Diagramme de classes · les cartes</div><h2>Une hiérarchie de cartes extensible</h2></div>
+      </header>
+      <div class="panel main pad" style="padding:20px">
+        <div class="cols" style="grid-template-columns:1.25fr 1fr">
+          <div class="dgm" data-diagram="classes"></div>
+          <div class="els tight">
+            <div class="el" data-step data-hl="Carte"><b>Carte (abstraite)</b><span><code>estJouableSurBorne(b)</code>, et <code>accepter(v)</code> pour le Visiteur.</span></div>
+            <div class="el" data-step data-hl="CarteClan Couleur"><b>CarteClan + Couleur</b><span>Force de 1 à 9 et couleur (énumération) : 54 cartes.</span></div>
+            <div class="el" data-step data-hl="CarteTactique"><b>CarteTactique (abstraite)</b><span><code>appliquerEffet(b, p)</code> : 10 cartes en 3 catégories.</span></div>
+            <div class="el" data-step data-focus="CarteTactique TroupeElite ModeCombat Ruse" data-hl="TroupeElite"><b>TroupeElite</b><span>Joker, Espion, Porte-Bouclier : jouées comme une carte Clan, valeur choisie à la revendication.</span></div>
+            <div class="el" data-step data-focus="CarteTactique TroupeElite ModeCombat Ruse" data-hl="ModeCombat"><b>ModeCombat</b><span>Colin-Maillard, Combat de Boue : changent la règle d'une borne.</span></div>
+            <div class="el" data-step data-focus="CarteTactique TroupeElite ModeCombat Ruse" data-hl="Ruse"><b>Ruse</b><span>Chasseur de tête, Stratège, Banshee, Traître : agissent sur la partie.</span></div>
+            <div class="el" data-step data-hl="CarteExtension"><b>CarteExtension</b><span>Point d'accroche des futures extensions.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 11 · Singleton -->
+    <section class="slide" data-title="Patron : Singleton" data-fx="iris" data-focus="Partie">
+      <header class="head">
+        <div class="badge">1</div>
+        <div><div class="kicker">Patron de conception 1/4</div><h2>Singleton <span class="tag sing" style="vertical-align:middle">Partie</span></h2></div>
+      </header>
+      <div class="panel main pad" style="padding:20px">
+        <div class="cols" style="grid-template-columns:1fr 1.1fr">
+          <div class="dgm" data-diagram="classes"></div>
+          <div>
+            <div class="els">
+              <div class="el sing" data-step data-hl="Partie"><b>Problème</b><span>Une seule partie à la fois, accessible du moteur comme des vues.</span></div>
+              <div class="el sing" data-step data-hl="Partie"><b>Solution</b><span>Constructeur privé <code>Partie()</code>, attribut statique <code>instance</code>, accès par <code>getInstance()</code>.</span></div>
+              <div class="el sing" data-step data-hl="Partie"><b>Limite : les tests</b><span>État global partagé : prévoir une réinitialisation entre deux tests.</span></div>
+              <div class="el sing" data-step data-hl="Partie"><b>Limite : la sauvegarde</b><span>Recharger une partie sérialisée créerait une 2<sup>e</sup> instance. <code>charger()</code> restaure donc l'état <em>dans</em> l'instance existante.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 12 · Stratégie -->
+    <section class="slide" data-title="Patron : Stratégie" data-fx="iris" data-focus="Joueur JoueurVirtuel Strategie StrategieDefensive StrategieOffensive">
+      <header class="head">
+        <div class="badge">2</div>
+        <div><div class="kicker">Patron de conception 2/4</div><h2>Stratégie <span class="tag strat" style="vertical-align:middle">Joueur virtuel</span></h2></div>
+      </header>
+      <div class="panel main pad" style="padding:20px">
+        <div class="cols" style="grid-template-columns:1.1fr 1fr">
+          <div class="dgm" data-diagram="classes"></div>
+          <div>
+            <div class="els tight">
+              <div class="el strat" data-step data-hl="Strategie"><b>Problème</b><span>Le joueur virtuel doit choisir quoi jouer, avec une stratégie simple, cohérente et interchangeable.</span></div>
+              <div class="el strat" data-step data-hl="Strategie JoueurVirtuel"><b>Solution</b><span>Interface <code>Strategie</code> : <code>choisirCarteAJouer</code> et <code>choisirBorneCible</code>. <code>JoueurVirtuel</code> la détient et la délègue.</span></div>
+              <div class="el strat" data-step data-focus="Strategie StrategieDefensive StrategieOffensive" data-hl="StrategieDefensive"><b>StrategieDefensive</b><span>Renforce les bornes déjà engagées, ne revendique que lorsqu'elle est sûre.</span></div>
+              <div class="el strat" data-step data-focus="Strategie StrategieDefensive StrategieOffensive" data-hl="StrategieOffensive"><b>StrategieOffensive</b><span>Joue ses cartes fortes sur les bornes adverses, revendique dès que possible.</span></div>
+              <div class="el strat" data-step data-hl="Strategie"><b>Intérêt</b><span>Ajouter une stratégie = ajouter une classe, sans toucher au reste.</span></div>
+            </div>
+            <div class="ribbon" data-label="Vigilance" data-step style="font-size:23px">Carte et borne choisies en deux appels : risque d'incohérence. À regrouper en un seul « coup » en phase 2.</div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 13 · Fabrique -->
+    <section class="slide" data-title="Patron : Fabrique" data-fx="iris" data-focus="Partie FabriqueCartes Carte">
+      <header class="head">
+        <div class="badge">3</div>
+        <div><div class="kicker">Patron de conception 3/4</div><h2>Fabrique <span class="tag fab" style="vertical-align:middle">Création des cartes</span></h2></div>
+      </header>
+      <div class="panel main pad" style="padding:20px">
+        <div class="cols" style="grid-template-columns:1fr 1.1fr">
+          <div class="dgm" data-diagram="classes"></div>
+          <div>
+            <div class="els">
+              <div class="el fab" data-step data-hl="Carte"><b>Problème</b><span>Créer 54 cartes Clan, 10 Tactique et des cartes d'extension selon les options, sans que <code>Partie</code> connaisse chaque classe de carte.</span></div>
+              <div class="el fab" data-step data-hl="FabriqueCartes"><b>Solution</b><span><code>FabriqueCartes</code> : <code>creerCartesClan</code>, <code>creerCartesTactique</code>, <code>creerCartesExtension</code>.</span></div>
+              <div class="el fab" data-step data-hl="Partie FabriqueCartes"><b>Usage</b><span><code>Partie</code> appelle la fabrique selon <code>varianteTactique</code> et <code>extensionsActivees</code>.</span></div>
+              <div class="el fab" data-step data-hl="FabriqueCartes"><b>Choix de simplicité</b><span>Fabrique simple : pas de hiérarchie de fabriques (3 classes de plus pour un gain faible). Une interface reste possible si les extensions se multiplient.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 14 · Visiteur -->
+    <section class="slide" data-title="Patron : Visiteur" data-fx="iris" data-focus="Carte VisiteurCarte EvaluateurCombinaison">
+      <header class="head">
+        <div class="badge">4</div>
+        <div><div class="kicker">Patron de conception 4/4</div><h2>Visiteur <span class="tag vis" style="vertical-align:middle">Évaluation</span></h2></div>
+      </header>
+      <div class="panel main pad" style="padding:20px">
+        <div class="cols" style="grid-template-columns:1.1fr 1fr">
+          <div class="dgm" data-diagram="classes"></div>
+          <div>
+            <div class="els tight">
+              <div class="el vis" data-step data-hl="Borne"><b>Problème</b><span>Ce qu'une carte vaut dans une formation dépend de son type (Clan : sa force ; Joker : valeur choisie ; Colin-Maillard : somme seule). Sans patron : <code>instanceof</code> en cascade dans <code>Borne</code>.</span></div>
+              <div class="el vis" data-step data-hl="Carte VisiteurCarte"><b>Solution</b><span><code>Carte.accepter(v)</code> appelle <code>v.visiter(this)</code> : le type réel de la carte choisit la méthode (double dispatch).</span></div>
+              <div class="el vis" data-step data-hl="EvaluateurCombinaison Combinaison"><b>EvaluateurCombinaison</b><span>Concentre la logique et produit une <code>Combinaison</code>.</span></div>
+              <div class="el vis" data-step data-hl="VisiteurCarte"><b>Ouverture</b><span>Nouvelle opération (sauvegarde, affichage) = nouveau visiteur, sans toucher aux cartes.</span></div>
+            </div>
+            <div class="ribbon" data-label="Contrepartie" data-step data-focus="Carte VisiteurCarte EvaluateurCombinaison" style="font-size:23px">Une nouvelle <em>classe</em> de carte oblige à modifier les visiteurs. Acceptable : les types de cartes sont stables. Pour <code>appliquerEffet</code>, le polymorphisme simple suffit.</div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 15 · v1 -> v2 -->
+    <section class="slide" data-title="De la version 1 à la version 2" data-fx="iris">
+      <header class="head">
+        <div class="badge">I</div>
+        <div><div class="kicker">Diagramme de classes · évolution</div><h2>Du diagramme initial au diagramme final</h2></div>
+      </header>
+      <div class="panel main pad" style="padding:20px">
+        <div class="cols" style="grid-template-columns:1fr 1fr">
+          <div style="display:grid;grid-template-rows:auto 1fr;gap:10px">
+            <h3 style="text-align:center">Version 1 : modélisation initiale</h3>
+            <img class="thumb" src="assets/classes-v1.png" alt="Diagramme de classes initial (Modelio)">
+          </div>
+          <div>
+            <div class="els tight">
+              <div class="el" data-step><b>Conservé</b><span>Joueur abstrait, Stratégie, Singleton, structure Partie/Borne/Pioche/Défausse et multiplicités (0..8, 1..2, 0..7 justifiées par les règles).</span></div>
+              <div class="el strat" data-step><b>Tour de jeu polymorphe</b><span><code>Joueur.jouerTour()</code> abstraite, au lieu d'une méthode propre au joueur virtuel.</span></div>
+              <div class="el" data-step><b>Cartes Tactique découpées</b><span>TroupeElite, ModeCombat, Ruse, d'après les 3 catégories des règles.</span></div>
+              <div class="el" data-step><b>Combinaison, Couleur</b><span>Deux énumérations qui manquaient ; <code>Carte</code> devient abstraite.</span></div>
+              <div class="el" data-step><b>Nettoyage</b><span>Constructeur privé <code>Partie()</code>, doublon <code>changerTour</code> supprimé, noms sans accents.</span></div>
+              <div class="el fab" data-step><b>Ajouts</b><span>Patrons Fabrique et Visiteur.</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 16 · Intercalaire II -->
+    <section class="slide" data-title="II · Diagrammes de séquence" data-fx="tartan">
+      <div class="divider">
+        <div class="num" data-anim style="--i:0">II</div>
+        <div class="big" data-anim style="--i:1">Diagrammes de séquence</div>
+        <div class="lead" data-anim style="--i:2">Comment se déroule un tour de jeu ?</div>
+      </div>
+    </section>
+
+    <!-- 17 · Scénario choisi -->
+    <section class="slide" data-title="Le scénario choisi" data-fx="ink">
+      <header class="head">
+        <div class="badge">II</div>
+        <div><div class="kicker">Diagrammes de séquence</div><h2>Le scénario choisi</h2></div>
+      </header>
+      <div class="panel main pad vc big-text">
+        <div class="cols c2">
+          <div>
+            <h3>Un tour d'un joueur virtuel</h3>
+            <ul class="lst" style="margin-top:18px">
+              <li data-step>Il traverse le moteur de bout en bout : choix, pose, revendication, pioche, fin de tour</li>
+              <li data-step>Il met en jeu la <span class="tag strat">Stratégie</span></li>
+              <li data-step>Deux diagrammes compagnons : l'<em>évaluation d'une borne</em> (<span class="tag vis">Visiteur</span>) et l'<em>initialisation</em> (<span class="tag sing">Singleton</span> <span class="tag fab">Fabrique</span>)</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Lire un diagramme de séquence</h3>
+            <table class="map" style="margin-top:6px">
+              <tbody>
+                <tr data-step><td style="width:34%">Ligne de vie</td><td></td><td>un objet, pendant le scénario</td></tr>
+                <tr data-step><td>Flèche pleine</td><td></td><td>appel de méthode</td></tr>
+                <tr data-step><td>Flèche pointillée</td><td></td><td>valeur retournée</td></tr>
+                <tr data-step><td><code>alt</code> <code>opt</code> <code>loop</code></td><td></td><td>si/sinon, optionnel, répété</td></tr>
+                <tr data-step><td><code>ref</code></td><td></td><td>renvoie à un autre diagramme</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 18 · Séquence principale -->
+    <section class="slide" data-title="Séquence : le tour d'un joueur virtuel" data-fx="iris">
+      <header class="head">
+        <div class="badge">II</div>
+        <div><div class="kicker">Diagrammes de séquence · principal</div><h2>Le tour d'un joueur virtuel</h2></div>
+      </header>
+      <div class="panel main pad" style="padding:20px">
+        <div class="cols" style="grid-template-columns:1.15fr 1fr">
+          <div class="dgm-scroll" data-diagram="tour"><div class="dgm-inner"></div></div>
+          <div class="els">
+            <div class="el strat" data-step data-scroll="1. Choisir"><b>1 · Choisir le coup</b><span><code>Partie</code> demande à <code>JoueurVirtuel</code> de jouer ; il délègue à sa <code>Strategie</code> le choix de la carte et de la borne.</span></div>
+            <div class="el" data-step data-scroll="2. Jouer"><b>2 · Jouer la carte</b><span>Si elle est jouable sur cette borne, elle y est posée ; sinon le joueur passe.</span></div>
+            <div class="el" data-step data-scroll="3. Revendiquer"><b>3 · Revendiquer</b><span>Pour chaque borne non revendiquée, tentative de revendication. L'évaluation est détaillée dans un second diagramme (<code>ref</code>).</span></div>
+            <div class="el" data-step data-scroll="4. Piocher"><b>4 · Piocher</b><span>Si la pioche n'est pas vide, le joueur pioche.</span></div>
+            <div class="el" data-step data-scroll="5. Fin"><b>5 · Fin de tour</b><span><code>Partie</code> vérifie la fin ; sinon elle change de joueur.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 19 · Évaluation d'une borne -->
+    <section class="slide" data-title="Séquence : évaluation d'une borne" data-fx="iris">
+      <header class="head">
+        <div class="badge">II</div>
+        <div><div class="kicker">Diagrammes de séquence · compagnon</div><h2>Évaluer une borne <span class="tag vis" style="vertical-align:middle">Visiteur</span></h2></div>
+      </header>
+      <div class="panel main pad" style="padding:20px">
+        <div class="cols" style="grid-template-columns:1.15fr 1fr">
+          <div class="dgm-scroll" data-diagram="evaluation"><div class="dgm-inner"></div></div>
+          <div class="els">
+            <div class="el vis" data-step data-scroll="evaluerGagnant"><b>1 · Un évaluateur par borne</b><span><code>Borne</code> crée un <code>EvaluateurCombinaison</code> et lui confie les cartes de chaque joueur.</span></div>
+            <div class="el vis" data-step data-scroll="accepter"><b>2 · Double dispatch</b><span>Pour chaque carte : <code>accepter(ev)</code> puis <code>visiter(this)</code>. Le type réel de la carte choisit la méthode.</span></div>
+            <div class="el vis" data-step data-scroll="strictement"><b>3 · Comparaison</b><span>La formation la plus forte l'emporte ; en cas d'égalité, la somme, puis le premier à avoir posé 3 cartes.</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 20 · Initialisation -->
+    <section class="slide" data-title="Séquence : initialisation" data-fx="iris">
+      <header class="head">
+        <div class="badge">II</div>
+        <div><div class="kicker">Diagrammes de séquence · compagnon</div><h2>Démarrer une partie <span class="tag sing" style="vertical-align:middle">Singleton</span> <span class="tag fab" style="vertical-align:middle">Fabrique</span></h2></div>
+      </header>
+      <div class="panel main pad" style="padding:20px">
+        <div class="cols" style="grid-template-columns:1.15fr 1fr">
+          <div class="dgm-scroll" data-diagram="initialisation"><div class="dgm-inner"></div></div>
+          <div class="els">
+            <div class="el sing" data-step data-scroll="getInstance"><b>1 · Obtenir la partie</b><span><code>getInstance()</code> crée la partie au premier appel, puis renvoie toujours la même instance.</span></div>
+            <div class="el fab" data-step data-scroll="creerCartesClan"><b>2 · Fabriquer les cartes</b><span>Les cartes Clan toujours ; Tactique et Extension selon les options choisies.</span></div>
+            <div class="el" data-step data-scroll="pour chaque joueur"><b>3 · Mélanger et distribuer</b><span>Chaque joueur pioche 6 cartes (7 en variante tactique).</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 21 · Cohérence -->
+    <section class="slide" data-title="Cohérence entre les diagrammes" data-fx="ink">
+      <header class="head">
+        <div class="badge">II</div>
+        <div><div class="kicker">Diagrammes de séquence</div><h2>Chaque message est une méthode du diagramme de classes</h2></div>
+      </header>
+      <div class="panel main pad vc big-text">
+        <table class="map">
+          <tbody>
+            <tr data-step><td><code>choisirCarteAJouer(...)</code></td><td>→</td><td><code>Strategie</code> ✔</td></tr>
+            <tr data-step><td><code>ajouterCarte(c, j)</code> · <code>revendiquer(j)</code></td><td>→</td><td><code>Borne</code> ✔</td></tr>
+            <tr data-step><td><code>tirerCarte()</code> · <code>estVide()</code></td><td>→</td><td><code>Pioche</code> ✔</td></tr>
+            <tr data-step><td><code>accepter(ev)</code> · <code>visiter(this)</code></td><td>→</td><td><code>Carte</code> · <code>VisiteurCarte</code> ✔</td></tr>
+            <tr data-step><td><code>creerCartesClan()</code></td><td>→</td><td><code>FabriqueCartes</code> ✔</td></tr>
+          </tbody>
+        </table>
+        <div class="ribbon green" data-label="Contrôle" data-step>Un message <em>a → b : m()</em> suppose une relation entre a et b et une méthode <em>m()</em> dans b.</div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 22 · Conclusion -->
+    <section class="slide" data-title="Conclusion" data-fx="ink">
+      <header class="head">
+        <div class="badge"><svg width="52" height="52" aria-hidden="true"><use href="#triskele" style="color:#fff"/></svg></div>
+        <div><div class="kicker">Conclusion</div><h2>Ce qui est sûr, ce qui peut bouger</h2></div>
+      </header>
+      <div class="panel main pad vc big-text">
+        <div class="cols c2">
+          <div>
+            <h3 style="color:var(--vert)">Aspects sûrs</h3>
+            <ul class="lst" style="margin-top:16px">
+              <li data-step>Hiérarchies <code>Joueur</code> et <code>Carte</code></li>
+              <li data-step>Structure <code>Partie</code> / <code>Borne</code> / <code>Pioche</code> / <code>Defausse</code></li>
+              <li data-step>Stratégie du joueur virtuel</li>
+              <li data-step>Énumérations <code>Combinaison</code> et <code>Couleur</code></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Susceptible d'évoluer</h3>
+            <ul class="lst" style="margin-top:16px">
+              <li data-step>Signature de <code>Strategie</code> : carte et borne en un seul coup</li>
+              <li data-step>Détail des effets des <em>ruses</em> et des <em>modes de combat</em></li>
+              <li data-step>Mécanisme de <em>sauvegarde</em> face au Singleton</li>
+              <li data-step>Répartition fine des méthodes entre <code>Partie</code> et <code>Joueur</code></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
+    </section>
+
+    <!-- 23 · Questions -->
+    <section class="slide" data-title="Questions" data-fx="ink">
+      <div class="hero">
+        <div class="sub" data-anim style="--i:0">Merci de votre attention</div>
+        <h1 data-anim style="--i:1;font-size:150px">Questions ?</h1>
+        <div class="who" data-anim style="--i:2">Prochaine étape : le cœur de l'application en ligne de commande</div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="help" role="note">← → naviguer · F plein écran · P console présentateur</div>
+
+  <script src="assets/diagrams.js"></script>
+  <script src="js/vendor/lenis.min.js"></script>
+  <script src="js/fx.js"></script>
+  <script src="js/diagram.js"></script>
+  <script src="js/deck.js"></script>
+</body>
+</html>
