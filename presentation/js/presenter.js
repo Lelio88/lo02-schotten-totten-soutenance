@@ -12,8 +12,21 @@
   const $ = (id) => document.getElementById(id);
   const channel = "BroadcastChannel" in window ? new BroadcastChannel(CHANNEL) : null;
 
-  const lenis = new window.Lenis({ wrapper: $("notes"), content: $("notes-inner"), duration: 1.0 });
-  (function raf(t) { lenis.raf(t); requestAnimationFrame(raf); })(0);
+  const MIN_FONT = 12;
+
+  /** Réduit la police (variable CSS) jusqu'à ce que tout le contenu tienne sans défilement. */
+  function fit(box, varName, max) {
+    for (let size = max; size >= MIN_FONT; size -= 1) {
+      box.style.setProperty(varName, `${size}px`);
+      if (box.scrollHeight <= box.clientHeight + 1) return;
+    }
+  }
+
+  function fitAll() {
+    fit($("notes"), "--fs-notes", 30);
+    fit($("side"), "--fs-side", 20);
+  }
+  addEventListener("resize", fitAll);
 
   function el(tag, className, text) {
     const node = document.createElement(tag);
@@ -34,8 +47,6 @@
       const line = el("p", `line${k === step ? " now" : k < step ? " past" : ""}`, text);
       inner.appendChild(line);
     });
-    const now = inner.querySelector(".now");
-    if (now) lenis.scrollTo(now, { offset: -40, duration: 0.9 });
 
     // Pastilles d'étapes.
     const stepsBox = $("steps");
@@ -52,6 +63,7 @@
       qa.appendChild(el("p", "qa-a", a));
     });
     $("qa-card").hidden = !(slide.qa && slide.qa.length);
+    fitAll();
   }
 
   const send = (msg) => { if (channel) channel.postMessage(msg); };

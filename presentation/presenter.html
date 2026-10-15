@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700;800&family=Uncial+Antiqua&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="js/vendor/lenis.css">
   <link rel="stylesheet" href="css/presenter.css">
 </head>
 <body>
@@ -23,7 +22,7 @@
       <div id="notes" class="notes"><div id="notes-inner"></div></div>
     </section>
 
-    <aside class="side">
+    <aside class="side" id="side">
       <div class="card">
         <h2>Étapes de la slide</h2>
         <div id="steps" class="steps" aria-live="polite"></div>
@@ -40,11 +39,9 @@
         <button id="prev" type="button">← Précédent</button>
         <button id="nextBtn" type="button">Suivant →</button>
       </div>
-      <p class="hint">Ouvrez <code>index.html</code> sur l'écran public (touche F pour le plein écran). Les deux fenêtres se synchronisent ; les flèches fonctionnent aussi ici.</p>
     </aside>
   </main>
 
-  <script src="js/vendor/lenis.min.js"></script>
   <script src="js/slides-data.js"></script>
   <script src="js/presenter.js"></script>
 </body>
