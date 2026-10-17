@@ -1,6 +1,6 @@
 @startuml sequence-evaluation-borne
-' Détail référencé par le diagramme principal : évaluation d'une borne (patron Visiteur).
-title Évaluation d'une borne (patron Visiteur)
+' Détail référencé par le diagramme principal : évaluation d'une borne.
+title Évaluation d'une borne
 
 skinparam shadowing false
 skinparam sequenceMessageAlign center
@@ -10,29 +10,18 @@ skinparam sequence {
   LifeLineBorderColor #5A3A1B
   ArrowColor #5A3A1B
 }
-skinparam participant<<visiteur>> {
-  BackgroundColor #FFE599
-}
 
 participant "b : Borne" as B
-participant "ev : EvaluateurCombinaison" as E <<visiteur>>
-participant "c : Carte" as C
+participant "Combinaison" as K <<enum>>
 
 B -> B : evaluerGagnant()
-B -> E ** : new
 loop pour chaque joueur
   B -> B : getCartesJoueur(j)
-  B -> E : evaluer(cartes)
-  activate E
-  loop pour chaque carte de la formation
-    E -> C : accepter(ev)
-    activate C
-    C -> E : visiter(this)
-    note right : Le type réel de la carte\n(CarteClan, TroupeElite...)\ndétermine la méthode visiter\nappelée
-    deactivate C
-  end
-  E --> B : combinaison (SUITE_COULEUR, BRELAN, ...)
-  deactivate E
+  B -> K : determiner(cartes)
+  activate K
+  note right : Teste dans l'ordre : suite couleur,\nbrelan, couleur, suite, somme
+  K --> B : combinaison (SUITE_COULEUR, BRELAN, ...)
+  deactivate K
 end
 alt la formation de j est strictement plus forte
   B -> B : revendiqueePar = j

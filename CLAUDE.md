@@ -11,7 +11,7 @@ Le projet suit une architecture en couches :
 2. **Application** (`application/`) — Moteur du jeu, orchestration des tours, stratégies joueurs
 3. **Infrastructure** (`infrastructure/`) — Persistance (sauvegarde/chargement), interface CLI/GUI
 
-Patterns clés : **Singleton** (`Partie`), **Stratégie** (`JoueurVirtuel` → `Strategie`), **Fabrique** (`FabriqueCartes`), **Visiteur** (`EvaluateurCombinaison` sur la hiérarchie `Carte`).
+Patterns clés : **Singleton** (`Partie`), **Stratégie** (`JoueurVirtuel` → `Strategie`). Fabrique et Visiteur sont barrés dans la version finale du sujet : absents du modèle, évoqués en « Pour aller plus loin ».
 Modèle de référence : `doc/uml/classes-v2.puml` (v2 = base du binôme corrigée) + 3 diagrammes de séquence ; analyse dans `doc/audit-diagramme-classes.md`.
 
 ## III. Pile technologique
