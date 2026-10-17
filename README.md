@@ -51,7 +51,7 @@ presentation/        # Diaporama HTML de la soutenance 1 (publié sur GitHub Pag
 ## 📖 Ressources
 
 - **Règles du jeu** : Voir `Consignes.pdf` (annexe)
-- **Patterns recommandés** : Singleton, Stratégie, Fabrique
+- **Patterns recommandés** : Singleton, Stratégie (Fabrique et Visiteur écartés par la version finale du sujet)
 - **Extension possibles** : Nouvelles cartes à concevoir et implémenter
 
 ## ⚙️ Architecture

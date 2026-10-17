@@ -57,7 +57,7 @@
           </div>
           <div class="stop big" data-step>
             <div class="badge n">I</div>
-            <h3>Diagramme de classes</h3><p>De quoi est fait le logiciel ? Éléments, relations, quatre patrons</p>
+            <h3>Diagramme de classes</h3><p>De quoi est fait le logiciel ? Éléments, relations, deux patrons</p>
           </div>
           <div class="stop big" data-step>
             <div class="badge n">II</div>
@@ -65,7 +65,7 @@
           </div>
           <div class="stop" data-step>
             <div class="badge n"><svg width="52" height="52" aria-hidden="true"><use href="#triskele" style="color:#fff"/></svg></div>
-            <h3>Conclusion</h3><p>Ce qui est sûr, ce qui peut bouger au développement</p>
+            <h3>Conclusion</h3><p>Ce qui est sûr, ce qui peut bouger, pour aller plus loin</p>
           </div>
         </div>
       </div>
@@ -147,12 +147,12 @@
         <table class="map">
           <tbody>
             <tr data-step><td>Joueur physique ou virtuel, combinables</td><td>→</td><td>Classe abstraite <code>Joueur</code> + <span class="tag strat">Stratégie</span></td></tr>
-            <tr data-step><td>Variantes et extensions = de nouvelles cartes</td><td>→</td><td>Hiérarchie <code>Carte</code> + <span class="tag fab">Fabrique</span></td></tr>
-            <tr data-step><td>Formations et effets spéciaux qui évoluent</td><td>→</td><td>Énumération <code>Combinaison</code> + <span class="tag vis">Visiteur</span></td></tr>
+            <tr data-step><td>Variantes et extensions = de nouvelles cartes</td><td>→</td><td>Hiérarchie abstraite <code>Carte</code></td></tr>
+            <tr data-step><td>Formations et effets spéciaux qui évoluent</td><td>→</td><td>Énumération <code>Combinaison</code></td></tr>
             <tr data-step><td>Une seule partie, que l'on peut sauvegarder</td><td>→</td><td><code>Partie</code> en <span class="tag sing">Singleton</span></td></tr>
           </tbody>
         </table>
-        <div class="ribbon" data-label="À retenir" data-step>Les quatre patrons de l'étude sont chacun justifiés par un <em>besoin du sujet</em>, pas ajoutés pour le principe.</div>
+        <div class="ribbon" data-label="À retenir" data-step>Les deux patrons de l'étude, <em>Singleton</em> et <em>Stratégie</em>, répondent chacun à un <em>besoin du sujet</em>.</div>
       </div>
       <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
     </section>
@@ -170,7 +170,7 @@
     <section class="slide" data-title="Vue d'ensemble du diagramme" data-fx="iris" data-focus="">
       <header class="head">
         <div class="badge">I</div>
-        <div><div class="kicker">Diagramme de classes</div><h2>Vue d'ensemble : 22 éléments, 4 patrons</h2></div>
+        <div><div class="kicker">Diagramme de classes</div><h2>Vue d'ensemble : 19 éléments, 2 patrons</h2></div>
       </header>
       <div class="panel main" style="padding:14px">
         <div class="dgm" data-diagram="classes" style="height:calc(100% - 118px)"></div>
@@ -178,7 +178,6 @@
           <div data-step data-focus="Partie Borne Pioche Defausse Combinaison"><span><em>Le plateau.</em> <code>Partie</code> possède 9 <code>Borne</code>, la <code>Pioche</code> et la <code>Defausse</code></span></div>
           <div data-step data-focus="Joueur JoueurPhysique JoueurVirtuel Strategie StrategieDefensive StrategieOffensive"><span><em>Les joueurs.</em> Physique ou virtuel, ce dernier piloté par une <code>Strategie</code></span></div>
           <div data-step data-focus="Carte CarteClan CarteTactique TroupeElite ModeCombat Ruse CarteExtension Couleur"><span><em>Les cartes.</em> Clan, Tactique (3 catégories) et Extension</span></div>
-          <div data-step data-focus="FabriqueCartes VisiteurCarte EvaluateurCombinaison Carte"><span><em>Deux blocs annexes.</em> La Fabrique crée les cartes, le Visiteur évalue les formations</span></div>
         </div>
       </div>
       <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
@@ -241,7 +240,7 @@
         <div class="cols" style="grid-template-columns:1.25fr 1fr">
           <div class="dgm" data-diagram="classes"></div>
           <div class="els tight">
-            <div class="el" data-step data-hl="Carte"><b>Carte (abstraite)</b><span><code>estJouableSurBorne(b)</code>, et <code>accepter(v)</code> pour le Visiteur.</span></div>
+            <div class="el" data-step data-hl="Carte"><b>Carte (abstraite)</b><span><code>estJouableSurBorne(b)</code> : chaque type de carte sait où il peut être posé.</span></div>
             <div class="el" data-step data-hl="CarteClan Couleur"><b>CarteClan + Couleur</b><span>Force de 1 à 9 et couleur (énumération) : 54 cartes.</span></div>
             <div class="el" data-step data-hl="CarteTactique"><b>CarteTactique (abstraite)</b><span><code>appliquerEffet(b, p)</code> : 10 cartes en 3 catégories.</span></div>
             <div class="el" data-step data-focus="CarteTactique TroupeElite ModeCombat Ruse" data-hl="TroupeElite"><b>TroupeElite</b><span>Joker, Espion, Porte-Bouclier : jouées comme une carte Clan, valeur choisie à la revendication.</span></div>
@@ -258,7 +257,7 @@
     <section class="slide" data-title="Patron : Singleton" data-fx="iris" data-focus="Partie">
       <header class="head">
         <div class="badge">1</div>
-        <div><div class="kicker">Patron de conception 1/4</div><h2>Singleton <span class="tag sing" style="vertical-align:middle">Partie</span></h2></div>
+        <div><div class="kicker">Patron de conception 1/2</div><h2>Singleton <span class="tag sing" style="vertical-align:middle">Partie</span></h2></div>
       </header>
       <div class="panel main pad" style="padding:20px">
         <div class="cols" style="grid-template-columns:1fr 1.1fr">
@@ -280,7 +279,7 @@
     <section class="slide" data-title="Patron : Stratégie" data-fx="iris" data-focus="Joueur JoueurVirtuel Strategie StrategieDefensive StrategieOffensive">
       <header class="head">
         <div class="badge">2</div>
-        <div><div class="kicker">Patron de conception 2/4</div><h2>Stratégie <span class="tag strat" style="vertical-align:middle">Joueur virtuel</span></h2></div>
+        <div><div class="kicker">Patron de conception 2/2</div><h2>Stratégie <span class="tag strat" style="vertical-align:middle">Joueur virtuel</span></h2></div>
       </header>
       <div class="panel main pad" style="padding:20px">
         <div class="cols" style="grid-template-columns:1.1fr 1fr">
@@ -294,51 +293,6 @@
               <div class="el strat" data-step data-hl="Strategie"><b>Intérêt</b><span>Ajouter une stratégie = ajouter une classe, sans toucher au reste.</span></div>
             </div>
             <div class="ribbon" data-label="Vigilance" data-step style="font-size:23px">Carte et borne choisies en deux appels : risque d'incohérence. À regrouper en un seul « coup » en phase 2.</div>
-          </div>
-        </div>
-      </div>
-      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
-    </section>
-
-    <!-- 13 · Fabrique -->
-    <section class="slide" data-title="Patron : Fabrique" data-fx="iris" data-focus="Partie FabriqueCartes Carte">
-      <header class="head">
-        <div class="badge">3</div>
-        <div><div class="kicker">Patron de conception 3/4</div><h2>Fabrique <span class="tag fab" style="vertical-align:middle">Création des cartes</span></h2></div>
-      </header>
-      <div class="panel main pad" style="padding:20px">
-        <div class="cols" style="grid-template-columns:1fr 1.1fr">
-          <div class="dgm" data-diagram="classes"></div>
-          <div>
-            <div class="els">
-              <div class="el fab" data-step data-hl="Carte"><b>Problème</b><span>Créer 54 cartes Clan, 10 Tactique et des cartes d'extension selon les options, sans que <code>Partie</code> connaisse chaque classe de carte.</span></div>
-              <div class="el fab" data-step data-hl="FabriqueCartes"><b>Solution</b><span><code>FabriqueCartes</code> : <code>creerCartesClan</code>, <code>creerCartesTactique</code>, <code>creerCartesExtension</code>.</span></div>
-              <div class="el fab" data-step data-hl="Partie"><b>Usage</b><span><code>Partie</code> appelle la fabrique selon <code>varianteTactique</code> et <code>extensionsActivees</code>.</span></div>
-              <div class="el fab" data-step data-hl="FabriqueCartes"><b>Choix de simplicité</b><span>Fabrique simple : pas de hiérarchie de fabriques (3 classes de plus pour un gain faible). Une interface reste possible si les extensions se multiplient.</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
-    </section>
-
-    <!-- 14 · Visiteur -->
-    <section class="slide" data-title="Patron : Visiteur" data-fx="iris" data-focus="Carte VisiteurCarte EvaluateurCombinaison">
-      <header class="head">
-        <div class="badge">4</div>
-        <div><div class="kicker">Patron de conception 4/4</div><h2>Visiteur <span class="tag vis" style="vertical-align:middle">Évaluation</span></h2></div>
-      </header>
-      <div class="panel main pad" style="padding:20px">
-        <div class="cols" style="grid-template-columns:1.1fr 1fr">
-          <div class="dgm" data-diagram="classes"></div>
-          <div>
-            <div class="els tight">
-              <div class="el vis" data-step data-hl="Borne"><b>Problème</b><span>Ce qu'une carte vaut dans une formation dépend de son type (Clan : sa force ; Joker : valeur choisie ; Colin-Maillard : somme seule). Sans patron : <code>instanceof</code> en cascade dans <code>Borne</code>.</span></div>
-              <div class="el vis" data-step data-hl="Carte VisiteurCarte"><b>Solution</b><span><code>Carte.accepter(v)</code> appelle <code>v.visiter(this)</code> : le type réel de la carte choisit la méthode (double dispatch).</span></div>
-              <div class="el vis" data-step data-focus="VisiteurCarte EvaluateurCombinaison" data-hl="EvaluateurCombinaison"><b>EvaluateurCombinaison</b><span>Concentre la logique et produit une <code>Combinaison</code>.</span></div>
-              <div class="el vis" data-step data-hl="VisiteurCarte"><b>Ouverture</b><span>Nouvelle opération (sauvegarde, affichage) = nouveau visiteur, sans toucher aux cartes.</span></div>
-            </div>
-            <div class="ribbon" data-label="Contrepartie" data-step data-focus="Carte VisiteurCarte EvaluateurCombinaison" style="font-size:23px">Une nouvelle <em>classe</em> de carte oblige à modifier les visiteurs. Acceptable : les types de cartes sont stables. Pour <code>appliquerEffet</code>, le polymorphisme simple suffit.</div>
           </div>
         </div>
       </div>
@@ -364,7 +318,6 @@
               <div class="el" data-step><b>Cartes Tactique découpées</b><span>TroupeElite, ModeCombat, Ruse, d'après les 3 catégories des règles.</span></div>
               <div class="el" data-step><b>Combinaison, Couleur</b><span>Deux énumérations qui manquaient ; <code>Carte</code> devient abstraite.</span></div>
               <div class="el" data-step><b>Nettoyage</b><span>Constructeur privé <code>Partie()</code>, doublon <code>changerTour</code> supprimé, noms sans accents.</span></div>
-              <div class="el fab" data-step><b>Ajouts</b><span>Patrons Fabrique et Visiteur.</span></div>
             </div>
           </div>
         </div>
@@ -394,7 +347,7 @@
             <ul class="lst" style="margin-top:18px">
               <li data-step>Il traverse le moteur de bout en bout : choix, pose, revendication, pioche, fin de tour</li>
               <li data-step>Il met en jeu la <span class="tag strat">Stratégie</span></li>
-              <li data-step>Deux diagrammes compagnons : l'<em>évaluation d'une borne</em> (<span class="tag vis">Visiteur</span>) et l'<em>initialisation</em> (<span class="tag sing">Singleton</span> <span class="tag fab">Fabrique</span>)</li>
+              <li data-step>Deux diagrammes compagnons : l'<em>évaluation d'une borne</em> et l'<em>initialisation</em> (<span class="tag sing">Singleton</span>)</li>
             </ul>
           </div>
           <div>
@@ -439,15 +392,15 @@
     <section class="slide" data-title="Séquence : évaluation d'une borne" data-fx="iris">
       <header class="head">
         <div class="badge">II</div>
-        <div><div class="kicker">Diagrammes de séquence · compagnon</div><h2>Évaluer une borne <span class="tag vis" style="vertical-align:middle">Visiteur</span></h2></div>
+        <div><div class="kicker">Diagrammes de séquence · compagnon</div><h2>Évaluer une borne</h2></div>
       </header>
       <div class="panel main pad" style="padding:20px">
         <div class="cols" style="grid-template-columns:1.15fr 1fr">
           <div class="dgm-scroll" data-diagram="evaluation"><div class="dgm-inner"></div></div>
           <div class="els">
-            <div class="el vis" data-step data-scroll="evaluerGagnant"><b>1 · Un évaluateur par borne</b><span><code>Borne</code> crée un <code>EvaluateurCombinaison</code> et lui confie les cartes de chaque joueur.</span></div>
-            <div class="el vis" data-step data-scroll="accepter"><b>2 · Double dispatch</b><span>Pour chaque carte : <code>accepter(ev)</code> puis <code>visiter(this)</code>. Le type réel de la carte choisit la méthode.</span></div>
-            <div class="el vis" data-step data-scroll="strictement"><b>3 · Comparaison</b><span>La formation la plus forte l'emporte ; en cas d'égalité, la somme, puis le premier à avoir posé 3 cartes.</span></div>
+            <div class="el" data-step data-scroll="evaluerGagnant"><b>1 · Les cartes de chaque joueur</b><span><code>Borne</code> récupère les cartes posées par chaque joueur avec <code>getCartesJoueur(j)</code>.</span></div>
+            <div class="el" data-step data-scroll="determiner"><b>2 · Déterminer la formation</b><span><code>Combinaison.determiner(cartes)</code> teste les formations de la plus forte à la plus faible et renvoie la première qui convient.</span></div>
+            <div class="el" data-step data-scroll="strictement"><b>3 · Comparaison</b><span>La formation la plus forte l'emporte ; en cas d'égalité, la somme, puis le premier à avoir posé 3 cartes.</span></div>
           </div>
         </div>
       </div>
@@ -458,14 +411,14 @@
     <section class="slide" data-title="Séquence : initialisation" data-fx="iris">
       <header class="head">
         <div class="badge">II</div>
-        <div><div class="kicker">Diagrammes de séquence · compagnon</div><h2>Démarrer une partie <span class="tag sing" style="vertical-align:middle">Singleton</span> <span class="tag fab" style="vertical-align:middle">Fabrique</span></h2></div>
+        <div><div class="kicker">Diagrammes de séquence · compagnon</div><h2>Démarrer une partie <span class="tag sing" style="vertical-align:middle">Singleton</span></h2></div>
       </header>
       <div class="panel main pad" style="padding:20px">
         <div class="cols" style="grid-template-columns:1.15fr 1fr">
           <div class="dgm-scroll" data-diagram="initialisation"><div class="dgm-inner"></div></div>
           <div class="els">
             <div class="el sing" data-step data-scroll="getInstance"><b>1 · Obtenir la partie</b><span><code>getInstance()</code> crée la partie au premier appel, puis renvoie toujours la même instance.</span></div>
-            <div class="el fab" data-step data-scroll="creerCartesClan"><b>2 · Fabriquer les cartes</b><span>Les cartes Clan toujours ; Tactique et Extension selon les options choisies.</span></div>
+            <div class="el" data-step data-scroll="54 cartes"><b>2 · Créer les cartes</b><span>Les cartes Clan toujours ; Tactique et Extension selon les options choisies.</span></div>
             <div class="el" data-step data-scroll="pour chaque joueur"><b>3 · Mélanger et distribuer</b><span>Chaque joueur pioche 6 cartes (7 en variante tactique).</span></div>
           </div>
         </div>
@@ -485,8 +438,8 @@
             <tr data-step><td><code>choisirCarteAJouer(...)</code></td><td>→</td><td><code>Strategie</code> ✔</td></tr>
             <tr data-step><td><code>ajouterCarte(c, j)</code> · <code>revendiquer(j)</code></td><td>→</td><td><code>Borne</code> ✔</td></tr>
             <tr data-step><td><code>tirerCarte()</code> · <code>estVide()</code></td><td>→</td><td><code>Pioche</code> ✔</td></tr>
-            <tr data-step><td><code>accepter(ev)</code> · <code>visiter(this)</code></td><td>→</td><td><code>Carte</code> · <code>VisiteurCarte</code> ✔</td></tr>
-            <tr data-step><td><code>creerCartesClan()</code></td><td>→</td><td><code>FabriqueCartes</code> ✔</td></tr>
+            <tr data-step><td><code>determiner(cartes)</code></td><td>→</td><td><code>Combinaison</code> ✔</td></tr>
+            <tr data-step><td><code>getInstance()</code> · <code>initialiserPartie()</code></td><td>→</td><td><code>Partie</code> ✔</td></tr>
           </tbody>
         </table>
         <div class="ribbon green" data-label="Contrôle" data-step>Un message <em>a → b : m()</em> suppose une relation entre a et b et une méthode <em>m()</em> dans b.</div>
@@ -521,6 +474,7 @@
             </ul>
           </div>
         </div>
+        <div class="ribbon" data-label="Pour aller plus loin" data-step style="font-size:23px">Une <em>Fabrique</em> pour créer les cartes selon les options, un <em>Visiteur</em> pour évaluer une formation selon le type de carte : écartés du sujet, mais envisageables si les extensions se multiplient.</div>
       </div>
       <div class="foot"><span>LO02 · Schotten Totten · Phase 1</span><span class="pg"></span></div>
     </section>

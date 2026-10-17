@@ -5,11 +5,11 @@
 | Livrable | État | Fichier |
 |---|---|---|
 | Diagramme de classes initial (binôme, Modelio) | Fait, conservé tel quel | Drive `LO02_UML`, copie `lo02_uml Class diagram.png` |
-| Diagramme de classes v2 (corrigé + Fabrique + Visiteur) | Fait | `doc/uml/classes-v2.puml` (+ `.png`, `.svg`) |
+| Diagramme de classes v2 (corrigé, deux patrons : Singleton, Stratégie) | Fait | `doc/uml/classes-v2.puml` (+ `.png`, `.svg`) |
 | Séquence : tour d'un joueur virtuel | Fait | `doc/uml/sequence-tour-joueur-virtuel.puml` |
-| Séquence : évaluation d'une borne (Visiteur) | Fait | `doc/uml/sequence-evaluation-borne.puml` |
-| Séquence : initialisation (Singleton, Fabrique) | Fait | `doc/uml/sequence-initialisation.puml` |
-| Audit v1 et étude des 4 patrons | Fait | `doc/audit-diagramme-classes.md` |
+| Séquence : évaluation d'une borne | Fait | `doc/uml/sequence-evaluation-borne.puml` |
+| Séquence : initialisation (Singleton) | Fait | `doc/uml/sequence-initialisation.puml` |
+| Audit v1 et étude des patrons | Fait | `doc/audit-diagramme-classes.md` |
 | Explication des diagrammes | Fait | `doc/explications-uml.md` |
 | Diaporama de soutenance (23 slides, console présentateur) | Fait, déployé par GitHub Actions à chaque push sur `main` | `presentation/` → https://lelio88.github.io/lo02-schotten-totten-soutenance/ |
 

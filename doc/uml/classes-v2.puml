@@ -1,6 +1,6 @@
 @startuml classes-v2
 ' Diagramme de classes v2 : base = diagramme du binôme (Modelio), corrigé et complété
-' avec Fabrique et Visiteur. Rendu : java -jar plantuml.jar -tpng classes-v2.puml
+' (hiérarchie des cartes, combinaisons, tour de jeu polymorphe). Rendu : java -jar plantuml.jar -tpng classes-v2.puml
 ' Code couleur : une couleur par patron de conception (voir légende).
 title Schotten Totten - Diagramme de classes v2
 
@@ -58,6 +58,7 @@ enum Combinaison {
   COULEUR
   SUITE
   SOMME
+  + {static} determiner(cartes : Carte [*]) : Combinaison
 }
 
 ' --- Joueurs et Strategie ---
@@ -86,7 +87,6 @@ class StrategieOffensive #C9DAF8
 abstract class Carte {
   - nom : String
   + {abstract} estJouableSurBorne(b : Borne) : boolean
-  + {abstract} accepter(v : VisiteurCarte)
 }
 
 class CarteClan {
@@ -118,25 +118,6 @@ enum Couleur {
   JAUNE
 }
 
-' --- Patron Fabrique ---
-class FabriqueCartes <<Fabrique>> #D9EAD3 {
-  + creerCartesClan() : Carte [*]
-  + creerCartesTactique() : Carte [*]
-  + creerCartesExtension() : Carte [*]
-}
-
-' --- Patron Visiteur ---
-interface VisiteurCarte <<Visiteur>> #FFE599 {
-  + visiter(c : CarteClan)
-  + visiter(c : TroupeElite)
-  + visiter(c : ModeCombat)
-  + visiter(c : Ruse)
-  + visiter(c : CarteExtension)
-}
-class EvaluateurCombinaison #FFE599 {
-  + evaluer(cartes : Carte [*]) : Combinaison
-}
-
 ' --- Structure du jeu ---
 Partie *-- "9" Borne : bornes
 Partie *-- "1..2" Pioche : pioche
@@ -164,18 +145,13 @@ CarteTactique <|-- TroupeElite
 CarteTactique <|-- ModeCombat
 CarteTactique <|-- Ruse
 
-' --- Fabrique et Visiteur ---
-Partie ..> FabriqueCartes : utilise
-FabriqueCartes ..> Carte : crée
-Carte ..> VisiteurCarte : accepte
-VisiteurCarte <|.. EvaluateurCombinaison
-Borne ..> EvaluateurCombinaison : utilise
+' --- Combinaisons ---
+Borne ..> Combinaison : utilise
+Partie ..> Carte : crée
 
 legend right
   |= Couleur |= Patron |
   | <back:#F4C7C3>      </back> | Singleton |
   | <back:#C9DAF8>      </back> | Stratégie |
-  | <back:#D9EAD3>      </back> | Fabrique |
-  | <back:#FFE599>      </back> | Visiteur |
 endlegend
 @enduml
