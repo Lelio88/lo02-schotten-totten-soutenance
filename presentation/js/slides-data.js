@@ -72,7 +72,7 @@ window.SLIDES = [
       "Les joueurs : physiques ou virtuels, le virtuel étant piloté par une Stratégie.",
       "Les cartes : Clan, Tactique en trois catégories, et Extension.",
     ],
-    qa: [{ q: "19 éléments, n'est-ce pas trop ?", a: "Notre base en comptait 16, nous en ajoutons trois, dont deux énumérations. Le seul point où l'on pourrait simplifier est le découpage des cartes tactiques, mais il reflète les 3 catégories des règles." }],
+    qa: [{ q: "19 éléments, n'est-ce pas trop ?", a: "Chaque élément répond à un besoin du sujet ou des règles, et deux sont de simples énumérations (Combinaison, Couleur). Le seul point où l'on pourrait simplifier est le découpage des cartes tactiques, mais il reflète les 3 catégories des règles." }],
   },
   {
     title: "Le plateau de jeu",
@@ -139,17 +139,6 @@ window.SLIDES = [
       "Point de vigilance : choisir la carte et la borne en deux appels peut donner un couple incohérent. Nous le regrouperons peut-être en un seul coup.",
     ],
     qa: [{ q: "Pourquoi une interface et pas une classe abstraite ?", a: "Les stratégies n'ont pas de code commun à factoriser ; une interface exprime juste le contrat et laisse la liberté d'héritage." }],
-  },
-  {
-    title: "De la version 1 à la version 2",
-    notes: [
-      "Du diagramme initial au diagramme final : ce que nous avons conservé et changé.",
-      "Nous gardons les bases : Joueur abstrait, Stratégie, Singleton, structure du plateau. Les multiplicités sont justifiées par les règles.",
-      "Le tour de jeu devient polymorphe : jouerTour abstraite sur Joueur.",
-      "Les cartes Tactique sont découpées selon les trois catégories des règles.",
-      "Combinaison et Couleur deviennent des énumérations ; Carte devient abstraite.",
-      "Nettoyage : constructeur privé, doublon supprimé, noms sans accents conformément aux conventions Oracle.",
-    ],
   },
   {
     title: "II · Diagrammes de séquence",

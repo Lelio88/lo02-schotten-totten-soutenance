@@ -11,7 +11,7 @@
 | Séquence : initialisation (Singleton) | Fait | `doc/uml/sequence-initialisation.puml` |
 | Audit v1 et étude des patrons | Fait | `doc/audit-diagramme-classes.md` |
 | Explication des diagrammes | Fait | `doc/explications-uml.md` |
-| Diaporama de soutenance (23 slides, console présentateur) | Fait, déployé par GitHub Actions à chaque push sur `main` | `presentation/` → https://lelio88.github.io/lo02-schotten-totten-soutenance/ |
+| Diaporama de soutenance (20 slides, console présentateur) | Fait, déployé par GitHub Actions à chaque push sur `main` | `presentation/` → https://lelio88.github.io/lo02-schotten-totten-soutenance/ |
 
 ## Phases suivantes
 
