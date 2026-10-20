@@ -12,7 +12,7 @@
   const $ = (id) => document.getElementById(id);
   const channel = "BroadcastChannel" in window ? new BroadcastChannel(CHANNEL) : null;
 
-  const MIN_FONT = 12;
+  const MIN_FONT = 10;
 
   /** Réduit la police (variable CSS) jusqu'à ce que tout le contenu tienne sans défilement. */
   function fit(box, varName, max) {
@@ -27,6 +27,8 @@
     fit($("side"), "--fs-side", 20);
   }
   addEventListener("resize", fitAll);
+  // Les polices web changent la hauteur du texte : recalculer une fois chargées.
+  if (document.fonts) document.fonts.ready.then(fitAll);
 
   function el(tag, className, text) {
     const node = document.createElement(tag);
@@ -39,6 +41,7 @@
     const slide = SLIDES[index];
     $("num").textContent = `${index + 1} / ${total}`;
     $("title").textContent = slide.title;
+    $("part").textContent = slide.part;
 
     // Notes : la ligne k correspond à l'étape k ; la ligne courante est mise en avant.
     const inner = $("notes-inner");
@@ -72,7 +75,29 @@
 
   $("prev").addEventListener("click", prev);
   $("nextBtn").addEventListener("click", next);
+  // Saisie d'un numéro de slide, comme sur l'écran public : saut après 1,2 s sans frappe
+  // (ou tout de suite si aucun chiffre de plus ne peut donner un numéro valide).
+  const JUMP_DELAY_MS = 1200;
+  let digits = "";
+  let digitTimer = null;
+
+  function flushDigits() {
+    clearTimeout(digitTimer);
+    const n = parseInt(digits, 10);
+    digits = "";
+    if (n >= 1 && n <= SLIDES.length) send({ type: "cmd", cmd: "goto", index: n - 1 });
+  }
+
+  function typeDigit(d) {
+    digits += d;
+    clearTimeout(digitTimer);
+    if (parseInt(digits, 10) * 10 > SLIDES.length) flushDigits();
+    else digitTimer = setTimeout(flushDigits, JUMP_DELAY_MS);
+  }
+
   addEventListener("keydown", (e) => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (/^\d$/.test(e.key)) { e.preventDefault(); typeDigit(e.key); return; }
     if (["ArrowRight", "PageDown", " ", "Enter"].includes(e.key)) { e.preventDefault(); next(); }
     if (["ArrowLeft", "PageUp", "Backspace"].includes(e.key)) { e.preventDefault(); prev(); }
   });

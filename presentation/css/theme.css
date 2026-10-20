@@ -192,6 +192,7 @@ ul.lst.tight > li { margin-bottom: 8px; font-size: 27px; }
 .tag {
   display: inline-block; font-family: var(--ui); font-weight: 800; font-size: 22px; letter-spacing: 0.08em;
   text-transform: uppercase; padding: 4px 16px; border-radius: 999px; color: #2b1b0e; border: 2px solid rgba(0,0,0,.35);
+  text-shadow: none; /* évite l'ombre portée héritée du titre (.head h2) */
 }
 .tag.sing { background: #f4c7c3; } .tag.strat { background: #c9daf8; }
 .tag.fab { background: #d9ead3; } .tag.vis { background: #ffe599; }
