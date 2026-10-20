@@ -220,3 +220,14 @@ window.SLIDES = [
     notes: ["Merci. Prochaine étape : le cœur de l'application en ligne de commande. Nous sommes prêts pour vos questions."],
   },
 ];
+
+// Grande partie de chaque slide, déduite des slides-titres « I · », « II · » et « Conclusion ».
+(() => {
+  let part = "Introduction";
+  window.SLIDES.forEach((slide) => {
+    if (slide.title.startsWith("II ·")) part = "Partie II";
+    else if (slide.title.startsWith("I ·")) part = "Partie I";
+    else if (slide.title === "Conclusion") part = "Conclusion";
+    slide.part = part;
+  });
+})();
