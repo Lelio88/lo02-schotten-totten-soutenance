@@ -32,10 +32,10 @@ const JOURS_FERIES = new Set(["2026-12-25", "2027-01-01"]);
 const TACHES = [
   { id: "L1", qui: "L", nom: "Plateau", pts: 4, debut: "2026-11-23", jours: 2 },
   { id: "L2", qui: "L", nom: "Combinaisons", pts: 5, debut: "2026-11-25", jours: 3 },
-  { id: "L4", qui: "L", nom: "Partie", pts: 5, debut: "2026-11-30", jours: 3 },
-  { id: "L5", qui: "L", nom: "Cartes tactiques", pts: 6, debut: "2026-12-03", jours: 3 },
-  { id: "L3", qui: "L", nom: "Revendication", pts: 6, debut: "2026-12-08", jours: 3 },
-  { id: "L6", qui: "L", nom: "Main de bout en bout", pts: 2, debut: "2026-12-11", jours: 1 },
+  { id: "L4", qui: "L", nom: "Partie", pts: 5, debut: "2026-11-30", jours: 2 },
+  { id: "L5", qui: "L", nom: "Cartes tactiques", pts: 6, debut: "2026-12-02", jours: 3 },
+  { id: "L3", qui: "L", nom: "Revendication", pts: 6, debut: "2026-12-07", jours: 3 },
+  { id: "L6", qui: "L", nom: "Main de bout en bout", pts: 2, debut: "2026-12-10", jours: 1 },
   { id: "L7", qui: "L", nom: "Contrôleur et Observer", pts: 5, debut: "2026-12-15", jours: 3 },
   { id: "L8", qui: "L", nom: "Fenêtre plateau", pts: 6, debut: "2026-12-18", jours: 3 },
   { id: "L9", qui: "L", nom: "CLI et GUI ensemble", pts: 3, debut: "2026-12-24", jours: 2 },
@@ -45,10 +45,10 @@ const TACHES = [
   { id: "P1", qui: "P", nom: "Cartes", pts: 3, debut: "2026-11-23", jours: 2 },
   { id: "P2", qui: "P", nom: "Joueurs", pts: 4, debut: "2026-11-25", jours: 2 },
   { id: "P3", qui: "P", nom: "Stratégies", pts: 5, debut: "2026-11-27", jours: 3 },
-  { id: "P4", qui: "P", nom: "Vue CLI", pts: 6, debut: "2026-12-03", jours: 3 },
-  { id: "P6", qui: "P", nom: "Extensions", pts: 5, debut: "2026-12-08", jours: 2 },
-  { id: "P5", qui: "P", nom: "Sauvegarde", pts: 4, debut: "2026-12-10", jours: 2 },
-  { id: "P7", qui: "P", nom: "État et UML phase 2", pts: 1, debut: "2026-12-14", jours: 1 },
+  { id: "P4", qui: "P", nom: "Vue CLI", pts: 6, debut: "2026-12-02", jours: 3 },
+  { id: "P6", qui: "P", nom: "Extensions", pts: 5, debut: "2026-12-07", jours: 2 },
+  { id: "P5", qui: "P", nom: "Sauvegarde", pts: 4, debut: "2026-12-09", jours: 2 },
+  { id: "P7", qui: "P", nom: "État et UML phase 2", pts: 1, debut: "2026-12-11", jours: 1 },
   { id: "P8", qui: "P", nom: "Écran de configuration", pts: 4, debut: "2026-12-15", jours: 2 },
   { id: "P9", qui: "P", nom: "Zone joueur", pts: 6, debut: "2026-12-18", jours: 3 },
   { id: "P11", qui: "P", nom: "CLI branchée", pts: 2, debut: "2026-12-23", jours: 1 },
@@ -108,7 +108,8 @@ const indexDe = (date) => {
 };
 const xDe = (date) => X0 + indexDe(date) * PX;
 const LARGEUR = X0 + jours.length * PX + 50;
-const HAUTEUR = 564;
+const HAUTEUR = 584;
+const BAS = 508; // fin des lignes verticales (échéances, semaines, aujourd'hui)
 
 // ---------------------------------------------------------------------------- utilitaires SVG
 
@@ -153,7 +154,7 @@ function semaines() {
     const d = new Date(`${j}T00:00:00Z`);
     if (i !== 0 && d.getUTCDay() !== 1) return;
     const x = X0 + i * PX;
-    sortie += `<line x1="${x}" y1="150" x2="${x}" y2="${HAUTEUR - 56}" stroke="${BRUN}" stroke-opacity="0.18"/>
+    sortie += `<line x1="${x}" y1="150" x2="${x}" y2="${BAS}" stroke="${BRUN}" stroke-opacity="0.18"/>
 <text x="${x + 4}" y="164" font-size="11" fill="${BRUN}">${d.getUTCDate()} ${MOIS[d.getUTCMonth()]}</text>`;
   });
   return sortie;
@@ -163,7 +164,7 @@ function jalon(j) {
   const x = xDe(j.date) + PX / 2;
   const largeur = j.texte.length * 6.4 + 18;
   const gauche = Math.max(8, Math.min(x - largeur / 2, LARGEUR - largeur - 8));
-  return `<line x1="${x}" y1="198" x2="${x}" y2="${HAUTEUR - 56}" stroke="#B03A2E" stroke-width="1.5" stroke-dasharray="5 4"/>
+  return `<line x1="${x}" y1="198" x2="${x}" y2="${BAS}" stroke="#B03A2E" stroke-width="1.5" stroke-dasharray="5 4"/>
 <rect x="${gauche}" y="174" width="${largeur}" height="24" rx="12" fill="#B03A2E"/>
 <text x="${gauche + largeur / 2}" y="190" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">${echapper(j.texte)}</text>`;
 }
@@ -232,9 +233,9 @@ function aujourdhui() {
   const jour = iso(new Date());
   if (jour < DEBUT || jour > FIN) return "";
   const x = xDe(jour) + PX / 2;
-  return `<line x1="${x}" y1="208" x2="${x}" y2="${HAUTEUR - 56}" stroke="#1E8449" stroke-width="2.5"/>
-<rect x="${x - 38}" y="${HAUTEUR - 56}" width="76" height="20" rx="10" fill="#1E8449"/>
-<text x="${x}" y="${HAUTEUR - 42}" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">Aujourd'hui</text>`;
+  return `<line x1="${x}" y1="208" x2="${x}" y2="${BAS}" stroke="#1E8449" stroke-width="2.5"/>
+<rect x="${x - 38}" y="${BAS}" width="76" height="20" rx="10" fill="#1E8449"/>
+<text x="${x}" y="${BAS + 14}" text-anchor="middle" font-size="11" font-weight="700" fill="#FFFFFF">Aujourd'hui</text>`;
 }
 
 function points(qui) {
@@ -274,7 +275,8 @@ ${JALONS.map(jalon).join("\n")}
 ${aujourdhui()}
 ${DEPENDANCES.map(fleche).join("\n")}
 ${TACHES.map(barre).join("\n")}
-<text x="20" y="${HAUTEUR - 14}" font-size="11.5" fill="${BRUN}">Une barre = une tâche de doc/repartition-taches.md (mêmes identifiants). Largeur proportionnelle à la durée prévue, hors week-ends et jours fériés. 1 point ≈ une demi-journée de travail.</text>
+<text x="20" y="${HAUTEUR - 30}" font-size="11.5" fill="${BRUN}">Objectif : tout est terminé le vendredi qui précède chaque soutenance, soit le 11 décembre puis le jeudi 31 décembre (le 1er janvier est férié).</text>
+<text x="20" y="${HAUTEUR - 12}" font-size="11.5" fill="${BRUN}">Une barre = une tâche de doc/repartition-taches.md (mêmes identifiants). Largeur proportionnelle à la durée prévue, hors week-ends et jours fériés. 1 point ≈ une demi-journée de travail.</text>
 </svg>
 `;
 

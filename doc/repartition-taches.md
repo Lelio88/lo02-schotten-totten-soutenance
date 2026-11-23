@@ -83,7 +83,24 @@ cartes n'est pas fusionnée, mes combinaisons ne peuvent pas être branchées su
    (`Partie`). Je travaille sur L2 en attendant.
 4. **Vendredi 27.** Pierre démarre P3 (stratégies) : L1 est terminé, il peut s'appuyer sur la
    vraie `Borne`.
-5. **Semaine suivante.** Ma `Partie` (L4) débloque sa CLI (P4) et ses extensions (P6).
+5. **Lundi 30 novembre et mardi 1er décembre.** Je termine `Partie` (L4) : elle débloque sa CLI
+   (P4) dès le mercredi 2 décembre, puis ses extensions (P6).
+
+## Dates à tenir
+
+Je vise un travail entièrement terminé le vendredi qui précède chaque soutenance, pour garder le
+week-end et le début de semaine pour répéter et corriger :
+
+- **Phase 2 : vendredi 11 décembre** (soutenance la semaine du 14). Mes tâches finissent le
+  jeudi 10, celles de Pierre le vendredi 11, jour où il met à jour l'état de l'application et
+  l'UML (P7).
+- **Phase 3 : jeudi 31 décembre**, puisque le vendredi 1er janvier est férié (soutenance la
+  semaine du 4 janvier). Les trois derniers jours sont une marge pour les tests de bout en bout.
+- **Remise : vendredi 15 janvier**, avec une semaine de réserve après la relecture.
+
+Pour tenir le 11 décembre, ma tâche L4 est comptée sur 2 jours et les tâches P6 et P5 de Pierre
+sur 2 jours chacune, un peu en dessous de leurs points. Je garde le vendredi 11 en réserve, Pierre
+n'a aucune marge : on regarde ça au premier jalon.
 
 En phase 3, on refait une séance de 30 minutes dès le lundi 15 décembre pour figer l'interface du
 contrôleur : Pierre peut ainsi commencer l'écran de configuration (P8) sans attendre mon

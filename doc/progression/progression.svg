@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1690" height="564" viewBox="0 0 1690 564" font-family="'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="Planning et progression du projet Schotten Totten">
+<svg xmlns="http://www.w3.org/2000/svg" width="1690" height="584" viewBox="0 0 1690 584" font-family="'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-label="Planning et progression du projet Schotten Totten">
 <title>Schotten Totten : planning et progression</title>
 <defs>
 <marker id="pointe" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#5A3A1B"/></marker>
 </defs>
-<rect width="1690" height="564" fill="#FBF6E9"/>
+<rect width="1690" height="584" fill="#FBF6E9"/>
 <text x="20" y="40" font-size="26" font-weight="700" fill="#2B1B0E">Schotten Totten : qui fait quoi, et dans quel ordre</text>
 <text x="20" y="66" font-size="14" fill="#5A3A1B">Avancement : Lelio 0 / 47 points · Pierre 0 / 48 points</text>
 <g font-size="12" fill="#2B1B0E">
@@ -59,25 +59,25 @@
 <path d="M186 406 C186 358 210 354 210 306" fill="none" stroke="#5A3A1B" stroke-width="1.8" marker-end="url(#pointe)"/>
 <path d="M186 306 C186 354 290 358 290 406" fill="none" stroke="#5A3A1B" stroke-width="1.8" marker-end="url(#pointe)"/>
 <path d="M266 406 C266 358 330 354 330 306" fill="none" stroke="#5A3A1B" stroke-width="1.8" marker-end="url(#pointe)"/>
-<path d="M426 306 C426 354 450 358 450 406" fill="none" stroke="#5A3A1B" stroke-width="1.8" marker-end="url(#pointe)"/>
-<path d="M546 306 C546 354 650 358 650 406" fill="none" stroke="#5A3A1B" stroke-width="1.8" marker-end="url(#pointe)"/>
-<path d="M546 406 C546 358 690 354 690 306" fill="none" stroke="#5A3A1B" stroke-width="1.8" marker-end="url(#pointe)"/>
+<path d="M386 306 C386 354 410 358 410 406" fill="none" stroke="#5A3A1B" stroke-width="1.8" marker-end="url(#pointe)"/>
+<path d="M506 306 C506 354 610 358 610 406" fill="none" stroke="#5A3A1B" stroke-width="1.8" marker-end="url(#pointe)"/>
+<path d="M506 406 C506 358 650 354 650 306" fill="none" stroke="#5A3A1B" stroke-width="1.8" marker-end="url(#pointe)"/>
 <path d="M866 306 C866 354 890 358 890 406" fill="none" stroke="#5A3A1B" stroke-width="1.8" marker-end="url(#pointe)"/>
 <path d="M1026 406 C1026 358 1050 354 1050 306" fill="none" stroke="#5A3A1B" stroke-width="1.8" marker-end="url(#pointe)"/>
 <clipPath id="c-L1"><rect x="120" y="240" width="76" height="66" rx="9"/></clipPath>
 <rect x="120" y="240" width="76" height="66" rx="9" fill="#3F6A9A" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="158" y="261" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">L1 · 4 pts</text><text x="158" y="279" text-anchor="middle" font-size="11.5" fill="#FFFFFF">Plateau</text>
 <clipPath id="c-L2"><rect x="200" y="240" width="116" height="66" rx="9"/></clipPath>
 <rect x="200" y="240" width="116" height="66" rx="9" fill="#3F6A9A" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="258" y="261" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">L2 · 5 pts</text><text x="258" y="279" text-anchor="middle" font-size="11.5" fill="#FFFFFF">Combinaisons</text>
-<clipPath id="c-L4"><rect x="320" y="240" width="116" height="66" rx="9"/></clipPath>
-<rect x="320" y="240" width="116" height="66" rx="9" fill="#3F6A9A" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="378" y="261" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">L4 · 5 pts</text><text x="378" y="279" text-anchor="middle" font-size="11.5" fill="#FFFFFF">Partie</text>
-<clipPath id="c-L5"><rect x="440" y="240" width="116" height="66" rx="9"/></clipPath>
-<rect x="440" y="240" width="116" height="66" rx="9" fill="#3F6A9A" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="498" y="261" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">L5 · 6 pts</text><text x="498" y="279" text-anchor="middle" font-size="11.5" fill="#FFFFFF">Cartes tactiques</text>
-<clipPath id="c-L3"><rect x="560" y="240" width="116" height="66" rx="9"/></clipPath>
-<rect x="560" y="240" width="116" height="66" rx="9" fill="#3F6A9A" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="618" y="261" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">L3 · 6 pts</text><text x="618" y="279" text-anchor="middle" font-size="11.5" fill="#FFFFFF">Revendication</text>
-<clipPath id="c-L6"><rect x="680" y="240" width="36" height="66" rx="9"/></clipPath>
-<rect x="680" y="240" width="36" height="66" rx="9" fill="#3F6A9A" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="698" y="268" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">L6</text>
-<text x="698" y="286" text-anchor="middle" font-size="10.5" fill="#FFFFFF">2 pts</text>
-<text x="698" y="236" text-anchor="middle" font-size="11" fill="#2B1B0E" stroke="#E8EFF7" stroke-width="3" paint-order="stroke">Main de bout en bout</text>
+<clipPath id="c-L4"><rect x="320" y="240" width="76" height="66" rx="9"/></clipPath>
+<rect x="320" y="240" width="76" height="66" rx="9" fill="#3F6A9A" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="358" y="261" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">L4 · 5 pts</text><text x="358" y="279" text-anchor="middle" font-size="11.5" fill="#FFFFFF">Partie</text>
+<clipPath id="c-L5"><rect x="400" y="240" width="116" height="66" rx="9"/></clipPath>
+<rect x="400" y="240" width="116" height="66" rx="9" fill="#3F6A9A" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="458" y="261" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">L5 · 6 pts</text><text x="458" y="279" text-anchor="middle" font-size="11.5" fill="#FFFFFF">Cartes tactiques</text>
+<clipPath id="c-L3"><rect x="520" y="240" width="116" height="66" rx="9"/></clipPath>
+<rect x="520" y="240" width="116" height="66" rx="9" fill="#3F6A9A" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="578" y="261" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">L3 · 6 pts</text><text x="578" y="279" text-anchor="middle" font-size="11.5" fill="#FFFFFF">Revendication</text>
+<clipPath id="c-L6"><rect x="640" y="240" width="36" height="66" rx="9"/></clipPath>
+<rect x="640" y="240" width="36" height="66" rx="9" fill="#3F6A9A" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="658" y="268" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">L6</text>
+<text x="658" y="286" text-anchor="middle" font-size="10.5" fill="#FFFFFF">2 pts</text>
+<text x="658" y="236" text-anchor="middle" font-size="11" fill="#2B1B0E" stroke="#E8EFF7" stroke-width="3" paint-order="stroke">Main de bout en bout</text>
 <clipPath id="c-L7"><rect x="760" y="240" width="116" height="66" rx="9"/></clipPath>
 <rect x="760" y="240" width="116" height="66" rx="9" fill="#3F6A9A" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="818" y="261" text-anchor="middle" font-size="12.5" font-weight="700" fill="#FFFFFF">L7 · 5 pts</text><text x="818" y="279" text-anchor="middle" font-size="11.5" fill="#FFFFFF">Contrôleur et</text><text x="818" y="293" text-anchor="middle" font-size="11.5" fill="#FFFFFF">Observer</text>
 <clipPath id="c-L8"><rect x="880" y="240" width="116" height="66" rx="9"/></clipPath>
@@ -96,16 +96,16 @@
 <rect x="200" y="406" width="76" height="66" rx="9" fill="#E8A33D" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="238" y="427" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2B1B0E">P2 · 4 pts</text><text x="238" y="445" text-anchor="middle" font-size="11.5" fill="#2B1B0E">Joueurs</text>
 <clipPath id="c-P3"><rect x="280" y="406" width="116" height="66" rx="9"/></clipPath>
 <rect x="280" y="406" width="116" height="66" rx="9" fill="#E8A33D" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="338" y="427" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2B1B0E">P3 · 5 pts</text><text x="338" y="445" text-anchor="middle" font-size="11.5" fill="#2B1B0E">Stratégies</text>
-<clipPath id="c-P4"><rect x="440" y="406" width="116" height="66" rx="9"/></clipPath>
-<rect x="440" y="406" width="116" height="66" rx="9" fill="#E8A33D" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="498" y="427" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2B1B0E">P4 · 6 pts</text><text x="498" y="445" text-anchor="middle" font-size="11.5" fill="#2B1B0E">Vue CLI</text>
-<clipPath id="c-P6"><rect x="560" y="406" width="76" height="66" rx="9"/></clipPath>
-<rect x="560" y="406" width="76" height="66" rx="9" fill="#E8A33D" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="598" y="427" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2B1B0E">P6 · 5 pts</text><text x="598" y="445" text-anchor="middle" font-size="11.5" fill="#2B1B0E">Extensions</text>
-<clipPath id="c-P5"><rect x="640" y="406" width="76" height="66" rx="9"/></clipPath>
-<rect x="640" y="406" width="76" height="66" rx="9" fill="#E8A33D" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="678" y="427" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2B1B0E">P5 · 4 pts</text><text x="678" y="445" text-anchor="middle" font-size="11.5" fill="#2B1B0E">Sauvegarde</text>
-<clipPath id="c-P7"><rect x="720" y="406" width="36" height="66" rx="9"/></clipPath>
-<rect x="720" y="406" width="36" height="66" rx="9" fill="#E8A33D" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="738" y="434" text-anchor="middle" font-size="13" font-weight="700" fill="#2B1B0E">P7</text>
-<text x="738" y="452" text-anchor="middle" font-size="10.5" fill="#2B1B0E">1 pts</text>
-<text x="738" y="486" text-anchor="middle" font-size="11" fill="#2B1B0E" stroke="#FBEFD9" stroke-width="3" paint-order="stroke">État et UML phase 2</text>
+<clipPath id="c-P4"><rect x="400" y="406" width="116" height="66" rx="9"/></clipPath>
+<rect x="400" y="406" width="116" height="66" rx="9" fill="#E8A33D" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="458" y="427" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2B1B0E">P4 · 6 pts</text><text x="458" y="445" text-anchor="middle" font-size="11.5" fill="#2B1B0E">Vue CLI</text>
+<clipPath id="c-P6"><rect x="520" y="406" width="76" height="66" rx="9"/></clipPath>
+<rect x="520" y="406" width="76" height="66" rx="9" fill="#E8A33D" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="558" y="427" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2B1B0E">P6 · 5 pts</text><text x="558" y="445" text-anchor="middle" font-size="11.5" fill="#2B1B0E">Extensions</text>
+<clipPath id="c-P5"><rect x="600" y="406" width="76" height="66" rx="9"/></clipPath>
+<rect x="600" y="406" width="76" height="66" rx="9" fill="#E8A33D" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="638" y="427" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2B1B0E">P5 · 4 pts</text><text x="638" y="445" text-anchor="middle" font-size="11.5" fill="#2B1B0E">Sauvegarde</text>
+<clipPath id="c-P7"><rect x="680" y="406" width="36" height="66" rx="9"/></clipPath>
+<rect x="680" y="406" width="36" height="66" rx="9" fill="#E8A33D" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="698" y="434" text-anchor="middle" font-size="13" font-weight="700" fill="#2B1B0E">P7</text>
+<text x="698" y="452" text-anchor="middle" font-size="10.5" fill="#2B1B0E">1 pts</text>
+<text x="698" y="486" text-anchor="middle" font-size="11" fill="#2B1B0E" stroke="#FBEFD9" stroke-width="3" paint-order="stroke">État et UML phase 2</text>
 <clipPath id="c-P8"><rect x="760" y="406" width="76" height="66" rx="9"/></clipPath>
 <rect x="760" y="406" width="76" height="66" rx="9" fill="#E8A33D" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="798" y="427" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2B1B0E">P8 · 4 pts</text><text x="798" y="445" text-anchor="middle" font-size="11.5" fill="#2B1B0E">Écran de</text><text x="798" y="459" text-anchor="middle" font-size="11.5" fill="#2B1B0E">configuration</text>
 <clipPath id="c-P9"><rect x="880" y="406" width="116" height="66" rx="9"/></clipPath>
@@ -122,5 +122,6 @@
 <rect x="1360" y="406" width="36" height="66" rx="9" fill="#E8A33D" stroke="#2B1B0E" stroke-opacity="0.55"/><text x="1378" y="434" text-anchor="middle" font-size="13" font-weight="700" fill="#2B1B0E">P13</text>
 <text x="1378" y="452" text-anchor="middle" font-size="10.5" fill="#2B1B0E">2 pts</text>
 <text x="1378" y="486" text-anchor="middle" font-size="11" fill="#2B1B0E" stroke="#FBEFD9" stroke-width="3" paint-order="stroke">État final et ZIP</text>
-<text x="20" y="550" font-size="11.5" fill="#5A3A1B">Une barre = une tâche de doc/repartition-taches.md (mêmes identifiants). Largeur proportionnelle à la durée prévue, hors week-ends et jours fériés. 1 point ≈ une demi-journée de travail.</text>
+<text x="20" y="554" font-size="11.5" fill="#5A3A1B">Objectif : tout est terminé le vendredi qui précède chaque soutenance, soit le 11 décembre puis le jeudi 31 décembre (le 1er janvier est férié).</text>
+<text x="20" y="572" font-size="11.5" fill="#5A3A1B">Une barre = une tâche de doc/repartition-taches.md (mêmes identifiants). Largeur proportionnelle à la durée prévue, hors week-ends et jours fériés. 1 point ≈ une demi-journée de travail.</text>
 </svg>
