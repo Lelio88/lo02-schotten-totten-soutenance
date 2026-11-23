@@ -3,10 +3,15 @@ Consignes*.pdf
 
 # Compilation et éditeurs
 classes/
+target/
 *.class
 .idea/
 .vscode/
 *.iml
 
-# Rendus temporaires
+# Javadoc générée (reconstruite à la remise)
+doc/javadoc/
+
+# Rendus temporaires et archive de remise
 *.bak
+*.zip

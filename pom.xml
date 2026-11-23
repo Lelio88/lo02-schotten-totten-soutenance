@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Build du projet Schotten Totten (LO02).
+  Choix non évident : le layout Maven standard (src/main/java, target/) est remplacé par celui
+  de l'archive de remise exigée par le sujet : src/ (sources), classes/ (classes compilées),
+  doc/ (javadoc, diagramme de classes final, état de l'application). Les tests vivent dans test/.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>lo02</groupId>
+  <artifactId>schotten-totten</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+  <name>Schotten Totten</name>
+  <description>Version électronique du jeu de cartes Schotten Totten (projet LO02).</description>
+
+  <properties>
+    <maven.compiler.release>11</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <junit.version>5.11.4</junit.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <outputDirectory>classes</outputDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <compilerArgs>
+            <arg>-Xlint:all</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.2</version>
+      </plugin>
+
+      <!-- mvnw javadoc:javadoc : génère doc/javadoc ; tout élément non documenté fait échouer la commande. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.11.2</version>
+        <configuration>
+          <reportOutputDirectory>${project.basedir}/doc</reportOutputDirectory>
+          <destDir>javadoc</destDir>
+          <doclint>all</doclint>
+          <failOnWarnings>true</failOnWarnings>
+          <locale>fr</locale>
+        </configuration>
+      </plugin>
+
+      <!-- mvnw checkstyle:check : conventions de code Oracle (Sun), rapport non bloquant. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.6.0</version>
+        <configuration>
+          <configLocation>sun_checks.xml</configLocation>
+          <sourceDirectories>
+            <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+          </sourceDirectories>
+          <consoleOutput>true</consoleOutput>
+          <violationSeverity>warning</violationSeverity>
+          <failOnViolation>false</failOnViolation>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

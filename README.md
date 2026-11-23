@@ -9,8 +9,9 @@ Concevoir et développer une application permettant de jouer à Schotten Totten 
 ## 📋 Structure du projet
 
 ```
-src/                 # Code source Java
-classes/             # Classes compilées
+src/                 # Code source Java (un package par responsabilité)
+test/                # Tests JUnit 5
+classes/             # Classes compilées (générées)
 doc/                 # Documentation, audit du diagramme, état actuel
 ├── uml/                 # Diagrammes PlantUML : classes v2 et séquences (+ PNG/SVG)
 └── current-state.md     # État actuel de l'implémentation
@@ -40,6 +41,7 @@ presentation/        # Diaporama HTML de la soutenance 1 (publié sur GitHub Pag
 - **Langage** : Java (JDK 11+)
 - **Modeleur UML** : Libre (Modelio, ArgoUML, etc.)
 - **IDE recommandé** : IntelliJ IDEA ou Eclipse
+- **Build** : Maven, via le wrapper fourni (`./mvnw verify`) ; mise en route et flux Git dans [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## 📝 Conventions
 

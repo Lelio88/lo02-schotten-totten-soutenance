@@ -15,5 +15,6 @@
 
 ## Phases suivantes
 
-- Phase 2 (moteur en ligne de commande) : non commencée, aucun code Java.
+- Environnement de développement : Maven (wrapper), JUnit 5, CI GitHub Actions, squelette des packages MVC documenté (`package-info.java`).
+- Phase 2 (moteur en ligne de commande) : non commencée, aucune classe Java.
 - Phase 3 (interface graphique MVC) : non commencée.
